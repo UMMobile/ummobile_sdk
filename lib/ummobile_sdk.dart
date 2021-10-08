@@ -14,6 +14,8 @@ export 'src/statics.dart';
 /// The entry point of the UMMobile SDK
 class UMMobileAPI {
   /// The auth section of the API.
+  ///
+  /// Can receive an API [version] (default `latestVersion`).
   static UMMobileAuth auth({String version: latestVersion}) =>
       UMMobileAuth(version: version);
 
