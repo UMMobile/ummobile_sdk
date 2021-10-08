@@ -25,6 +25,7 @@ UMMobileSDK sdk = UMMobileSDK(token: token.accessToken);
 The `UMMobileSDK` contains an attribute for each API section.
 
 - `user`: contains the functions to get the user information.
+- `catalogue`: contains the functions to get the general information.
 
 ## Individual vs Main class
 Each section can be found in an attribute of the main class, but can also be used individually.

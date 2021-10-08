@@ -35,13 +35,28 @@ await sdk.user.getInformation();
 The user information can be found in the `user` attribute on the `UMMobileSDK` class or using the `UMMobileUser` class.
 
 ### `getInformation()`
-The `getInformation()` function returns a `User` class that contains the information of the user.
+Returns the information of the user.
 ```dart
 User user = await sdk.user.getInformation();
 ```
 
 ### `getProfilePicture()`
-The `getProfilePicture()` function returns the profile picture of the user as a base64 string.
+Returns the profile picture of the user as a base64 string.
 ```dart
 String base64Image = await sdk.user.getProfilePicture();
+```
+
+## Catalogue
+The catalogue information can be found in the `catalogue` attribute on the `UMMobileSDK` class or using the `UMMobileCatalogue` class.
+
+### `getRules()`
+Returns the list of the user rules.
+```dart
+List<Rule> rules = await sdk.catalogue.getRules();
+```
+
+### `getCountries()`
+Returns a list of countries.
+```dart
+List<Country> countries = await sdk.catalogue.getCountries();
 ```
