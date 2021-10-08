@@ -51,12 +51,32 @@ void main() {
       employee = UMMobileAPI(token: employeeToken.accessToken);
     });
 
+    test('Get picture', () async {
+      String base64 = await student.user.getProfilePicture();
+      RegExp regex = RegExp(
+          r"^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$");
+
+      expect(regex.hasMatch(base64), isTrue);
+    });
+
     test('Get user: Student', () async {
       User user = await student.user.getUser();
 
       expect(user.id, 1130745);
       expect(user.role, Roles.Student);
       expect(user.employee, isNull);
+      expect(user.image, isNull);
+    });
+
+    test('Get user: Student with picture', () async {
+      User user = await student.user.getUser(includePicture: true);
+      String base64 = await student.user.getProfilePicture();
+      RegExp regex = RegExp(
+          r"^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$");
+
+      expect(user.image, isNotNull);
+      expect(regex.hasMatch(user.image!), isTrue);
+      expect(user.image, equals(base64));
     });
 
     test('Get user: Employee', () async {
@@ -66,14 +86,6 @@ void main() {
       expect(user.role, Roles.Employee);
       expect(user.employee!.contract, ContractTypes.Contract);
       expect(user.student, isNull);
-    });
-
-    test('Get picture', () async {
-      String base64 = await student.user.getProfilePicture();
-      RegExp regex = RegExp(
-          r"^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$");
-
-      expect(regex.hasMatch(base64), isTrue);
     });
   });
 }
