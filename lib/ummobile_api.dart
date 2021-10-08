@@ -1,7 +1,29 @@
 library ummobile_api;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+import 'package:ummobile_api/src/statics.dart';
+import 'package:ummobile_api/src/ummobile_user.dart';
+import 'package:ummobile_api/src/ummobile_auth.dart';
+
+// Export components
+export 'src/models/models.dart';
+
+class UMMobileAPI {
+  /// The auth section of the API.
+  static UMMobileAuth auth({String version: latestVersion}) =>
+      UMMobileAuth(version: version);
+
+  /// The user section of the API.
+  UMMobileUser user;
+
+  /// The entry point of the UMMobile API client.
+  ///
+  /// Require the [token] token to authenticate the requests, and the API [version] where to make the calls, which is the latests by default (v1).
+  ///
+  /// **IMPORTANT:**
+  /// The information will be of the user whose [token] is sent as authentication.
+  /// You can get a new token from the `this.auth().getToken` function.
+  UMMobileAPI({
+    required String token,
+    String version: latestVersion,
+  }) : this.user = UMMobileUser(auth: token, version: latestVersion);
 }
