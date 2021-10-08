@@ -12,6 +12,12 @@ class User {
   EmployeeExtras? employee;
   Roles role;
 
+  /// Returns `true` if the user is a student.
+  bool get isStudent => this.role == Roles.Student;
+
+  /// Returns `true` if the user is a employee.
+  bool get isEmployee => this.role == Roles.Employee;
+
   User({
     required this.id,
     required this.name,

@@ -70,7 +70,7 @@ void main() {
 
     test('Get picture', () async {
       String base64 = await student.user.getProfilePicture();
-      RegExp regex = new RegExp(
+      RegExp regex = RegExp(
           r"^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$");
 
       expect(regex.hasMatch(base64), isTrue);

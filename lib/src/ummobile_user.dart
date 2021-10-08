@@ -2,7 +2,6 @@ import 'package:ummobile_sdk/src/models/user/employee.dart';
 import 'package:ummobile_sdk/src/models/user/student.dart';
 import 'package:ummobile_sdk/src/models/user/user.dart';
 import 'package:ummobile_sdk/src/statics.dart';
-import 'package:ummobile_sdk/src/types/role.dart';
 import 'package:ummobile_sdk/src/utils/utils.dart';
 import 'package:ummobile_custom_http/ummobile_custom_http.dart';
 
@@ -50,13 +49,13 @@ class UMMobileUser {
           role: getRoleFromInt(json['role']),
         );
 
-        if (user.role == Roles.Student) {
+        if (user.isStudent) {
           user.student = StudentExtras(
             baptized: json['student']['baptized'],
             religion: json['student']['religion'],
             type: json['student']['type'],
           );
-        } else if (user.role == Roles.Employee) {
+        } else if (user.isEmployee) {
           user.employee = EmployeeExtras(
             imss: json['employee']['imss'],
             rfc: json['employee']['rfc'],
