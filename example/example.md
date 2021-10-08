@@ -60,3 +60,12 @@ Returns a list of countries.
 ```dart
 List<Country> countries = await sdk.catalogue.getCountries();
 ```
+
+## Academic
+The academic information can be found in the `academic` attribute on the `UMMobileSDK` class or using the `UMMobileAcademic` class.
+
+### `getArchives()`
+Returns the list of the user archives.
+```dart
+List<Archive> rules = await sdk.academic.getArchives();
+```

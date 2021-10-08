@@ -48,6 +48,14 @@ void main() {
     });
   });
 
+  group('[Academic]', () {
+    test('Get archives', () async {
+      List<Archive> archives = await student.academic.getArchives();
+
+      expect(archives, isNotEmpty);
+    });
+  });
+
   group('[Catalogue]', () {
     test('Get rules: Student', () async {
       List<Rule> rules = await student.catalogue.getRules();

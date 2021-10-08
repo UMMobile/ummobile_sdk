@@ -4,6 +4,7 @@ import 'package:ummobile_sdk/src/statics.dart';
 import 'package:ummobile_sdk/src/ummobile_catalogue.dart';
 import 'package:ummobile_sdk/src/ummobile_user.dart';
 import 'package:ummobile_sdk/src/ummobile_auth.dart';
+import 'package:ummobile_sdk/src/ummobile_academic.dart';
 
 // Export components
 export 'src/ummobile_auth.dart';
@@ -23,6 +24,9 @@ class UMMobileSDK {
   /// The user section of the API.
   UMMobileUser user;
 
+  /// The academic section of the API.
+  UMMobileAcademic academic;
+
   /// The catalogue section of the API.
   UMMobileCatalogue catalogue;
 
@@ -37,5 +41,6 @@ class UMMobileSDK {
     required String token,
     String version: latestVersion,
   })  : this.user = UMMobileUser(auth: token, version: latestVersion),
+        this.academic = UMMobileAcademic(auth: token, version: latestVersion),
         this.catalogue = UMMobileCatalogue(auth: token, version: latestVersion);
 }
