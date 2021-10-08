@@ -1,35 +1,47 @@
 # Initialization
 To initialize a new instance a token is needed.
 ```dart
-UMMobileAPI api = UMMobileAPI(token: 'YOUR_TOKEN');
+UMMobileSDK sdk = UMMobileSDK(token: 'YOUR_TOKEN');
 ```
 
 ## Auth
-To get a token you can use the static function `UMMobileAPI.auth()` that returns the API section for the authentication.
+To get a token you can use the static function `UMMobileSDK.auth()` that returns the API section for the authentication.
 ```dart
 // Get token
-Token token = await UMMobileAPI
+Token token = await UMMobileSDK
   .auth()
   .getToken(username: 1234567, password: 'YOUR_PASSWORD');
 
 // Initialize using the access token
-UMMobileAPI api = UMMobileAPI(token: token.accessToken);
+UMMobileSDK sdk = UMMobileSDK(token: token.accessToken);
 ```
 
 # Sections
-The `UMMobileAPI` contains an attribute for each API section.
+The `UMMobileSDK` contains an attribute for each API section.
+
+## Individual vs Main class
+Each section can be found in an attribute of the main class, but can also be used individually.
+```dart
+// Individual class
+UMMobileUser user = UMMobileUser(token: 'YOUT_TOKEN');
+await user.getInformation();
+
+// Main class
+UMMobileSDK sdk = UMMobileSDK(token: 'YOUR_TOKEN');
+await sdk.user.getInformation();
+```
 
 ## User
-The user information can be found in the `user` attribute.
+The user information can be found in the `user` attribute on the `UMMobileSDK` class or using the `UMMobileUser` class.
 
-### `getUser()`
-The `getUser()` function returns a `User` class that contains the information of the user.
+### `getInformation()`
+The `getInformation()` function returns a `User` class that contains the information of the user.
 ```dart
-User user = await api.user.getUser();
+User user = await sdk.user.getInformation();
 ```
 
 ### `getProfilePicture()`
 The `getProfilePicture()` function returns the profile picture of the user as a base64 string.
 ```dart
-String base64Image = await api.user.getProfilePicture();
+String base64Image = await sdk.user.getProfilePicture();
 ```

@@ -30,7 +30,7 @@ void main() {
 
   group('[Auth]', () {
     test('Get token', () async {
-      final Token token = await UMMobileAPI.auth()
+      final Token token = await UMMobileSDK.auth()
           .getToken(username: int.parse(userStudent), password: passStudent);
       expect(token, isNotNull);
       expect(token.accessToken, isNotNull);
@@ -38,17 +38,17 @@ void main() {
   });
 
   group('[User]', () {
-    late UMMobileAPI employee;
-    late UMMobileAPI student;
+    late UMMobileSDK employee;
+    late UMMobileSDK student;
 
     setUpAll(() async {
-      Token studentToken = await UMMobileAPI.auth()
+      Token studentToken = await UMMobileSDK.auth()
           .getToken(username: int.parse(userStudent), password: passStudent);
-      Token employeeToken = await UMMobileAPI.auth()
+      Token employeeToken = await UMMobileSDK.auth()
           .getToken(username: int.parse(userEmployee), password: passEmployee);
 
-      student = UMMobileAPI(token: studentToken.accessToken);
-      employee = UMMobileAPI(token: employeeToken.accessToken);
+      student = UMMobileSDK(token: studentToken.accessToken);
+      employee = UMMobileSDK(token: employeeToken.accessToken);
     });
 
     test('Get picture', () async {
@@ -60,7 +60,7 @@ void main() {
     });
 
     test('Get user: Student', () async {
-      User user = await student.user.getUser();
+      User user = await student.user.getInformation();
 
       expect(user.id, 1130745);
       expect(user.role, Roles.Student);
@@ -69,7 +69,7 @@ void main() {
     });
 
     test('Get user: Student with picture', () async {
-      User user = await student.user.getUser(includePicture: true);
+      User user = await student.user.getInformation(includePicture: true);
       String base64 = await student.user.getProfilePicture();
       RegExp regex = RegExp(
           r"^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)?$");
@@ -80,7 +80,7 @@ void main() {
     });
 
     test('Get user: Employee', () async {
-      User user = await employee.user.getUser();
+      User user = await employee.user.getInformation();
 
       expect(user.id, 9830438);
       expect(user.role, Roles.Employee);

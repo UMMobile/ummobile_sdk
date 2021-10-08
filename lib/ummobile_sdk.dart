@@ -12,7 +12,7 @@ export 'src/types/types.dart';
 export 'src/statics.dart';
 
 /// The entry point of the UMMobile SDK
-class UMMobileAPI {
+class UMMobileSDK {
   /// The auth section of the API.
   ///
   /// Can receive an API [version] (default `latestVersion`).
@@ -22,14 +22,14 @@ class UMMobileAPI {
   /// The user section of the API.
   UMMobileUser user;
 
-  /// The entry point of the UMMobile API client.
+  /// The entry point of the UMMobile SDK.
   ///
   /// Require the [token] token to authenticate the requests, and the API [version] where to make the calls, which is the latests by default (v1).
   ///
   /// **IMPORTANT:**
   /// The information will be of the user whose [token] is sent as authentication.
   /// You can get a new token from the `this.auth().getToken` function.
-  UMMobileAPI({
+  UMMobileSDK({
     required String token,
     String version: latestVersion,
   }) : this.user = UMMobileUser(auth: token, version: latestVersion);
