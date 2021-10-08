@@ -5,8 +5,13 @@ import 'package:ummobile_sdk/src/ummobile_user.dart';
 import 'package:ummobile_sdk/src/ummobile_auth.dart';
 
 // Export components
+export 'src/ummobile_auth.dart';
+export 'src/ummobile_user.dart';
 export 'src/models/models.dart';
+export 'src/types/types.dart';
+export 'src/statics.dart';
 
+/// The entry point of the UMMobile SDK
 class UMMobileAPI {
   /// The auth section of the API.
   static UMMobileAuth auth({String version: latestVersion}) =>
