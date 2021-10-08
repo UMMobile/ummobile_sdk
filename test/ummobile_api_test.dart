@@ -2,25 +2,36 @@ import 'dart:io' show Platform;
 
 import 'package:dotenv/dotenv.dart' show load, env, clean;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ummobile_sdk/src/models/auth/token.dart';
-import 'package:ummobile_sdk/src/models/user/user.dart';
-import 'package:ummobile_sdk/src/types/contract_types.dart';
-import 'package:ummobile_sdk/src/types/role.dart';
 import 'package:ummobile_sdk/ummobile_sdk.dart';
 
 void main() {
+  late UMMobileSDK employee;
+  late UMMobileSDK student;
   String userStudent = Platform.environment['USER_STUDENT'] ?? '';
   String passStudent = Platform.environment['PASSWORD_STUDENT'] ?? '';
   String userEmployee = Platform.environment['USER_EMPLOYEE'] ?? '';
   String passEmployee = Platform.environment['PASSWORD_EMPLOYEE'] ?? '';
   String execEnv = env['EXEC_ENV'] ?? Platform.environment['EXEC_ENV'] ?? '';
   if (execEnv != 'github_actions') {
-    setUpAll(() {
+    setUpAll(() async {
       load();
       userStudent = env['USER_STUDENT'] ?? userStudent;
       passStudent = env['PASSWORD_STUDENT'] ?? passStudent;
       userEmployee = env['USER_EMPLOYEE'] ?? userEmployee;
       passEmployee = env['PASSWORD_EMPLOYEE'] ?? passEmployee;
+
+      UMMobileAuth auth = UMMobileSDK.auth();
+      Token studentToken = await auth.getToken(
+        username: int.parse(userStudent),
+        password: passStudent,
+      );
+      Token employeeToken = await auth.getToken(
+        username: int.parse(userEmployee),
+        password: passEmployee,
+      );
+
+      student = UMMobileSDK(token: studentToken.accessToken);
+      employee = UMMobileSDK(token: employeeToken.accessToken);
     });
 
     tearDownAll(() {
@@ -37,20 +48,22 @@ void main() {
     });
   });
 
-  group('[User]', () {
-    late UMMobileSDK employee;
-    late UMMobileSDK student;
+  group('[Catalogue]', () {
+    test('Get rules: Student', () async {
+      List<Rule> rules = await student.catalogue.getRules();
 
-    setUpAll(() async {
-      Token studentToken = await UMMobileSDK.auth()
-          .getToken(username: int.parse(userStudent), password: passStudent);
-      Token employeeToken = await UMMobileSDK.auth()
-          .getToken(username: int.parse(userEmployee), password: passEmployee);
-
-      student = UMMobileSDK(token: studentToken.accessToken);
-      employee = UMMobileSDK(token: employeeToken.accessToken);
+      expect(rules, isNotEmpty);
+      expect(rules.every((rule) => rule.roles.contains(Roles.Student)), true);
     });
 
+    test('Get countries', () async {
+      List<Country> countries = await student.catalogue.getCountries();
+
+      expect(countries, isNotEmpty);
+    });
+  });
+
+  group('[User]', () {
     test('Get picture', () async {
       String base64 = await student.user.getProfilePicture();
       RegExp regex = RegExp(

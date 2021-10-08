@@ -75,12 +75,16 @@ class UMMobileUser {
 
         return user;
       },
+      utf8Decode: false,
     );
   }
 
   /// Retrieve the user profile picture
   Future<String> getProfilePicture() async {
     return await _http.customGet(
-        path: '/picture', mapper: (json) => json['base64']);
+      path: '/picture',
+      mapper: (json) => json['base64'],
+      utf8Decode: false,
+    );
   }
 }

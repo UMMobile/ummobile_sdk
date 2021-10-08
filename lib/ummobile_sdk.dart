@@ -1,6 +1,7 @@
 library ummobile_sdk;
 
 import 'package:ummobile_sdk/src/statics.dart';
+import 'package:ummobile_sdk/src/ummobile_catalogue.dart';
 import 'package:ummobile_sdk/src/ummobile_user.dart';
 import 'package:ummobile_sdk/src/ummobile_auth.dart';
 
@@ -22,6 +23,9 @@ class UMMobileSDK {
   /// The user section of the API.
   UMMobileUser user;
 
+  /// The catalogue section of the API.
+  UMMobileCatalogue catalogue;
+
   /// The entry point of the UMMobile SDK.
   ///
   /// Require the [token] token to authenticate the requests, and the API [version] where to make the calls, which is the latests by default (v1).
@@ -32,5 +36,6 @@ class UMMobileSDK {
   UMMobileSDK({
     required String token,
     String version: latestVersion,
-  }) : this.user = UMMobileUser(auth: token, version: latestVersion);
+  })  : this.user = UMMobileUser(auth: token, version: latestVersion),
+        this.catalogue = UMMobileCatalogue(auth: token, version: latestVersion);
 }
