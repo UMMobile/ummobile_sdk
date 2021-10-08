@@ -2,11 +2,11 @@ import 'dart:io' show Platform;
 
 import 'package:dotenv/dotenv.dart' show load, env, clean;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ummobile_api/src/models/auth/token.dart';
-import 'package:ummobile_api/src/models/user/user.dart';
-import 'package:ummobile_api/src/types/contract_types.dart';
-import 'package:ummobile_api/src/types/role.dart';
-import 'package:ummobile_api/ummobile_api.dart';
+import 'package:ummobile_sdk/src/models/auth/token.dart';
+import 'package:ummobile_sdk/src/models/user/user.dart';
+import 'package:ummobile_sdk/src/types/contract_types.dart';
+import 'package:ummobile_sdk/src/types/role.dart';
+import 'package:ummobile_sdk/ummobile_sdk.dart';
 
 void main() {
   String userStudent = Platform.environment['USER_STUDENT'] ?? '';

@@ -1,8 +1,8 @@
-library ummobile_api;
+library ummobile_sdk;
 
-import 'package:ummobile_api/src/statics.dart';
-import 'package:ummobile_api/src/ummobile_user.dart';
-import 'package:ummobile_api/src/ummobile_auth.dart';
+import 'package:ummobile_sdk/src/statics.dart';
+import 'package:ummobile_sdk/src/ummobile_user.dart';
+import 'package:ummobile_sdk/src/ummobile_auth.dart';
 
 // Export components
 export 'src/models/models.dart';

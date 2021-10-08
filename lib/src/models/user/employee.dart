@@ -1,4 +1,4 @@
-import 'package:ummobile_api/src/types/contract_types.dart';
+import 'package:ummobile_sdk/src/types/contract_types.dart';
 
 class Position {
   String id;

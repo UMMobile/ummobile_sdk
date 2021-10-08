@@ -1,4 +1,4 @@
-import 'package:ummobile_api/src/types/residence.dart';
+import 'package:ummobile_sdk/src/types/residence.dart';
 
 class StudentExtras {
   bool baptized;

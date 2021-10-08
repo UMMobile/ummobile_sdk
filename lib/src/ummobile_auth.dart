@@ -1,5 +1,5 @@
-import 'package:ummobile_api/src/models/auth/token.dart';
-import 'package:ummobile_api/src/statics.dart';
+import 'package:ummobile_sdk/src/models/auth/token.dart';
+import 'package:ummobile_sdk/src/statics.dart';
 import 'package:ummobile_custom_http/ummobile_custom_http.dart';
 
 /// A client for the UMMobile API auth section requests.

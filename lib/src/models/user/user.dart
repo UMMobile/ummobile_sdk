@@ -1,6 +1,6 @@
-import 'package:ummobile_api/src/models/user/employee.dart';
-import 'package:ummobile_api/src/models/user/student.dart';
-import 'package:ummobile_api/src/types/role.dart';
+import 'package:ummobile_sdk/src/models/user/employee.dart';
+import 'package:ummobile_sdk/src/models/user/student.dart';
+import 'package:ummobile_sdk/src/types/role.dart';
 
 class User {
   int id;

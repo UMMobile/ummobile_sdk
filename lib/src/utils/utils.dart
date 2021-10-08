@@ -1,5 +1,5 @@
-import 'package:ummobile_api/src/types/contract_types.dart';
-import 'package:ummobile_api/src/types/role.dart';
+import 'package:ummobile_sdk/src/types/contract_types.dart';
+import 'package:ummobile_sdk/src/types/role.dart';
 
 extension IntegerConditionals on int {
   bool isValidIndexOf(List list) => this >= 0 && this < list.length;

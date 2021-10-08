@@ -1,4 +1,4 @@
-# ummobile_api
+# ummobile_sdk
 
 A new Flutter package project.
 
