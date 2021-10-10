@@ -1,3 +1,4 @@
+/// The contract valid types.
 enum ContractTypes {
   Denominational,
   InterDivision,
