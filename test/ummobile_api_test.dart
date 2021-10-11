@@ -17,25 +17,27 @@ void main() {
       load();
       passStudent = env['PASSWORD_STUDENT'] ?? passStudent;
       passEmployee = env['PASSWORD_EMPLOYEE'] ?? passEmployee;
-
-      UMMobileAuth auth = UMMobileSDK.auth();
-      Token studentToken = await auth.getToken(
-        username: userStudent,
-        password: passStudent,
-      );
-      Token employeeToken = await auth.getToken(
-        username: userEmployee,
-        password: passEmployee,
-      );
-
-      student = UMMobileSDK(token: studentToken.accessToken);
-      employee = UMMobileSDK(token: employeeToken.accessToken);
     });
 
     tearDownAll(() {
       clean();
     });
   }
+
+  setUpAll(() async {
+    UMMobileAuth auth = UMMobileSDK.auth();
+    Token studentToken = await auth.getToken(
+      username: userStudent,
+      password: passStudent,
+    );
+    Token employeeToken = await auth.getToken(
+      username: userEmployee,
+      password: passEmployee,
+    );
+
+    student = UMMobileSDK(token: studentToken.accessToken);
+    employee = UMMobileSDK(token: employeeToken.accessToken);
+  });
 
   group('[Auth]', () {
     test('Get token', () async {
