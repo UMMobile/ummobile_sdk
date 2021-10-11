@@ -67,5 +67,14 @@ The academic information can be found in the `academic` attribute on the `UMMobi
 ### `getArchives()`
 Returns the list of the user archives.
 ```dart
-List<Archive> rules = await sdk.academic.getArchives();
+List<Archive> archives = await sdk.academic.getArchives();
+```
+
+### `getAllSemesters()`
+Returns a class that contains the `semesters`, `average` & the `planId`.
+```dart
+AllSemesters all = await sdk.academic.getAllSemesters();
+
+print(all.semesters); // Example: [Instance of Semester, Instance of Semester]
+print(all.average); // Example: 98.37
 ```

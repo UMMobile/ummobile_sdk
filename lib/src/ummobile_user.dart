@@ -75,7 +75,6 @@ class UMMobileUser {
 
         return user;
       },
-      utf8Decode: false,
     );
   }
 
@@ -84,7 +83,6 @@ class UMMobileUser {
     return await _http.customGet(
       path: '/picture',
       mapper: (json) => json['base64'],
-      utf8Decode: false,
     );
   }
 }

@@ -5,3 +5,4 @@ export 'user/user.dart';
 export 'catalogue/rule.dart';
 export 'catalogue/country.dart';
 export 'academic/archive.dart';
+export 'academic/semester.dart';

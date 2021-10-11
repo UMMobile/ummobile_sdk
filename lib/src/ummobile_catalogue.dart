@@ -41,7 +41,6 @@ class UMMobileCatalogue {
                 pdfUrl: Uri.parse(e['pdfUrl']),
               ))
           .toList(),
-      utf8Decode: false,
     );
   }
 
@@ -55,7 +54,6 @@ class UMMobileCatalogue {
                 name: e['name'],
               ))
           .toList(),
-      utf8Decode: false,
     );
   }
 }

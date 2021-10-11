@@ -1,4 +1,5 @@
 import 'package:ummobile_sdk/src/models/academic/archive.dart';
+import 'package:ummobile_sdk/src/models/academic/semester.dart';
 import 'package:ummobile_sdk/src/statics.dart';
 import 'package:ummobile_custom_http/ummobile_custom_http.dart';
 import 'package:ummobile_sdk/ummobile_sdk.dart';
@@ -42,7 +43,44 @@ class UMMobileAcademic {
                         .toList(),
                   ))
               .toList(),
-          utf8Decode: false,
+        );
+  }
+
+  /// Retrieve all the user semesters
+  Future<AllSemesters> getAllSemesters() {
+    return this._http.customGet<AllSemesters>(
+          path: '/semesters',
+          mapper: (json) => AllSemesters(
+            planId: json['planId'],
+            average: double.parse(json['average']),
+            semesters: List.from(json['semesters'])
+                .map((semester) => Semester(
+                      name: semester['name'],
+                      order: int.parse(semester['order']),
+                      average: semester['average'] is int
+                          ? semester['average'].toDouble()
+                          : double.parse(semester['average']),
+                      planId: semester['planId'],
+                      subjects: List.from(semester['subjects'])
+                          .map((subject) => Subject(
+                                name: subject['name'],
+                                score: double.parse(subject['score']),
+                                isExtra: subject['isExtra'],
+                                credits: int.parse(subject['credits']),
+                                teacher: SubjectTeacher(
+                                  name: subject['teacher']['name'],
+                                ),
+                                extras: SubjectExtras(
+                                  loadId: subject['extras']['loadId'],
+                                  type: subject['extras']['type'],
+                                  semester:
+                                      int.parse(subject['extras']['semester']),
+                                ),
+                              ))
+                          .toList(),
+                    ))
+                .toList(),
+          ),
         );
   }
 }

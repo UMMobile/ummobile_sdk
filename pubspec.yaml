@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  ummobile_custom_http: ^0.0.2-beta1
+  ummobile_custom_http: ^0.0.2-beta2
 
 dev_dependencies:
   flutter_test:

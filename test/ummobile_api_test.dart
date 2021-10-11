@@ -54,6 +54,16 @@ void main() {
 
       expect(archives, isNotEmpty);
     });
+
+    test('Get all semesters', () async {
+      AllSemesters allSemesters = await student.academic.getAllSemesters();
+
+      expect(allSemesters.planId, isNotEmpty);
+      expect(allSemesters.average, isPositive);
+      expect(allSemesters.semesters, isNotEmpty);
+      expect(allSemesters.semesters.first.order, 1);
+      expect(allSemesters.semesters.first.subjects.first.extras.semester, 1);
+    });
   });
 
   group('[Catalogue]', () {
