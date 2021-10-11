@@ -66,6 +66,13 @@ void main() {
     });
   });
 
+  test('Get current semester', () async {
+    Semester semester = await student.academic.getCurrentSemester();
+
+    expect(semester.planId, 'ISC2010*');
+    expect(semester.subjects, isNotEmpty);
+  });
+
   group('[Catalogue]', () {
     test('Get rules: Student', () async {
       List<Rule> rules = await student.catalogue.getRules();

@@ -1,7 +1,7 @@
 /// The country model.
 class Country {
   /// The id of the country.
-  String id;
+  int id;
 
   /// The name of the country.
   String name;

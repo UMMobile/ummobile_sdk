@@ -78,3 +78,12 @@ AllSemesters all = await sdk.academic.getAllSemesters();
 print(all.semesters); // Example: [Instance of Semester, Instance of Semester]
 print(all.average); // Example: 98.37
 ```
+
+### `getCurrentSemester()`
+Returns the current semester.
+```dart
+Semester semester = await sdk.academic.getCurrentSemester();
+
+print(semester.subjects); // List of current subjects
+print(semester.name); // Example: "PRIMER SEMESTRE"
+```

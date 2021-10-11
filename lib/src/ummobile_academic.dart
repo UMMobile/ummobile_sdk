@@ -33,11 +33,11 @@ class UMMobileAcademic {
           path: '/archives',
           mapper: (json) => List.from(json)
               .map((e) => Archive(
-                    id: int.parse(e['id']),
+                    id: e['id'],
                     name: e['name'],
                     images: List.from(e['images'])
                         .map((e) => ArchiveImg(
-                              page: int.parse(e['page']),
+                              page: e['page'],
                               image: e['image'],
                             ))
                         .toList(),
@@ -52,35 +52,45 @@ class UMMobileAcademic {
           path: '/semesters',
           mapper: (json) => AllSemesters(
             planId: json['planId'],
-            average: double.parse(json['average']),
+            average: json['average'],
             semesters: List.from(json['semesters'])
-                .map((semester) => Semester(
-                      name: semester['name'],
-                      order: int.parse(semester['order']),
-                      average: semester['average'] is int
-                          ? semester['average'].toDouble()
-                          : double.parse(semester['average']),
-                      planId: semester['planId'],
-                      subjects: List.from(semester['subjects'])
-                          .map((subject) => Subject(
-                                name: subject['name'],
-                                score: double.parse(subject['score']),
-                                isExtra: subject['isExtra'],
-                                credits: int.parse(subject['credits']),
-                                teacher: SubjectTeacher(
-                                  name: subject['teacher']['name'],
-                                ),
-                                extras: SubjectExtras(
-                                  loadId: subject['extras']['loadId'],
-                                  type: subject['extras']['type'],
-                                  semester:
-                                      int.parse(subject['extras']['semester']),
-                                ),
-                              ))
-                          .toList(),
-                    ))
+                .map((semester) => _mapSemester(semester))
                 .toList(),
           ),
         );
   }
+
+  Future<Semester> getCurrentSemester() {
+    return this._http.customGet(
+          path: '/semesters/current',
+          mapper: (json) => _mapSemester(json),
+        );
+  }
+
+  Semester _mapSemester(dynamic json) => Semester(
+        name: json['name'],
+        order: json['order'],
+        average: json['average'] is int
+            ? json['average'].toDouble()
+            : json['average'],
+        planId: json['planId'],
+        subjects: List.from(json['subjects'])
+            .map((subject) => Subject(
+                  name: subject['name'],
+                  score: subject['score'] is int
+                      ? subject['score'].toDouble()
+                      : subject['score'],
+                  isExtra: subject['isExtra'],
+                  credits: subject['credits'],
+                  teacher: SubjectTeacher(
+                    name: subject['teacher']['name'],
+                  ),
+                  extras: SubjectExtras(
+                    loadId: subject['extras']['loadId'],
+                    type: subject['extras']['type'],
+                    semester: subject['extras']['semester'],
+                  ),
+                ))
+            .toList(),
+      );
 }

@@ -38,7 +38,7 @@ class UMMobileUser {
       path: '?includePicture=$includePicture',
       mapper: (json) {
         User user = User(
-          id: int.parse(json['id']),
+          id: json['id'],
           name: json['name'],
           surnames: json['surnames'],
           extras: UserExtras(
