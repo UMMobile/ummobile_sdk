@@ -15,6 +15,9 @@
       - [`getCurrentSemester()`](#getcurrentsemester)
       - [`getPlan()`](#getplan)
       - [`getGlobalAverage()`](#getglobalaverage)
+    - [Financial](#financial)
+      - [`getBalances()`](#getbalances)
+      - [`getMovements(String balance)`](#getmovementsstring-balance)
 
 # Initialization
 To initialize a new instance a token is needed.
@@ -120,4 +123,39 @@ String planId = await sdk.academic.getPlan();
 Returns the global average for the current plan (_`getPlan()`_).
 ```dart
 double average = await sdk.academic.getGlobalAverage();
+```
+
+### Financial
+The financial information can be found in the `financial` attribute on the `UMMobileSDK` class or using the `UMMobileFinancial` class.
+
+#### `getBalances()`
+Returns the list of the user balances.
+```dart
+// Without movements
+List<Balance> balances = await sdk.financial.getBalances();
+print(balances.first.movements); // null
+
+// With current year movements.
+List<Balance> balances = await sdk.financial.getBalances(includeMovements: IncludeMovements.OnlyCurrent);
+print(balances.first.movements!.current); // [Instance of Movement, Instance of Movement, ...]
+print(balances.first.movements!.lastYear); // null
+
+// With current and last year movements.
+List<Balance> balances = await sdk.financial.getBalances(includeMovements: IncludeMovements.CurrentAndLastYear);
+print(balances.first.movements!.current); // [Instance of Movement, Instance of Movement, ...]
+print(balances.first.movements!.lastYear); // [Instance of Movement, Instance of Movement, ...]
+```
+
+#### `getMovements(String balance)`
+Returns a `Movements` class with the balance movements. This class contains the `current` year movements and also can contains (but optional) the `lastYear` movements.
+```dart
+// Only current year movements
+Movements movements = await sdk.financial.getMovements('BALANCE_ID');
+print(movements.current); // [Instance of Movement, Instance of Movement, ...]
+print(movements.lastYear); // null
+
+// Current and last year movements
+Movements movements = await sdk.financial.getMovements('BALANCE_ID', includeLastYear: true);
+print(movements.current); // [Instance of Movement, Instance of Movement, ...]
+print(movements.lastYear); // [Instance of Movement, Instance of Movement, ...]
 ```

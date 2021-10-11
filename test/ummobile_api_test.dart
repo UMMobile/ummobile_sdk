@@ -85,6 +85,59 @@ void main() {
     });
   });
 
+  group('[Financial]', () {
+    test('Get balances: without movements', () async {
+      List<Balance> balances = await student.financial.getBalances();
+
+      expect(balances, isNotEmpty);
+      expect(balances.length, 1);
+      expect(balances.first.id, 'SFORMA01');
+      expect(balances.first.type, 'CR');
+      expect(balances.first.movements, isNull);
+    });
+
+    test('Get balances: with current movements', () async {
+      List<Balance> balances = await student.financial
+          .getBalances(includeMovements: IncludeMovements.OnlyCurrent);
+
+      expect(balances.first.movements, isNotNull);
+      expect(balances.first.movements!.current, isNotEmpty);
+      expect(balances.first.movements!.current.first.date, isNull);
+      expect(balances.first.movements!.current.first.isDebit, isTrue);
+      expect(balances.first.movements!.lastYear, isNull);
+    });
+
+    test('Get balances: with current & last year movements', () async {
+      List<Balance> balances = await student.financial
+          .getBalances(includeMovements: IncludeMovements.CurrentAndLastYear);
+
+      expect(balances.first.movements, isNotNull);
+      expect(balances.first.movements!.current, isNotEmpty);
+      expect(balances.first.movements!.lastYear, isNotEmpty);
+      expect(balances.first.movements!.lastYear!.first.date, isNull);
+      expect(balances.first.movements!.lastYear!.first.isDebit, isTrue);
+    });
+
+    test('Get movements: only currents', () async {
+      Movements movements = await student.financial.getMovements('SFORMA01');
+
+      expect(movements.current, isNotEmpty);
+      expect(movements.current.first.date, isNull);
+      expect(movements.current.first.isDebit, isTrue);
+      expect(movements.lastYear, isNull);
+    });
+
+    test('Get movements: currents & last year', () async {
+      Movements movements = await student.financial
+          .getMovements('SFORMA01', includeLastYear: true);
+
+      expect(movements.current, isNotEmpty);
+      expect(movements.lastYear, isNotEmpty);
+      expect(movements.lastYear!.first.date, isNull);
+      expect(movements.lastYear!.first.isDebit, isTrue);
+    });
+  });
+
   group('[Catalogue]', () {
     test('Get rules: Student', () async {
       List<Rule> rules = await student.catalogue.getRules();
