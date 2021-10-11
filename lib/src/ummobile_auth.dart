@@ -20,8 +20,8 @@ class UMMobileAuth {
   Future<Token> getToken({
     required int username,
     required String password,
-  }) async {
-    return await _http.customPost<Token>(
+  }) {
+    return _http.customPost<Token>(
       body: {
         'username': username,
         'password': password,

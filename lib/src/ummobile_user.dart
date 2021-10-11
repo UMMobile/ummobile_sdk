@@ -33,8 +33,8 @@ class UMMobileUser {
   /// Some fields can be null depending on the role of the user. If the user is student then will have a `student` field and the `employee` field will be `null`. If the user is employee the `student` field will be null but then the `employee` field will have information.
   ///
   /// Can receive if should [includePicture] of the user. This can increase the response size so by default is `false`.
-  Future<User> getInformation({bool includePicture: false}) async {
-    return await _http.customGet<User>(
+  Future<User> getInformation({bool includePicture: false}) {
+    return _http.customGet<User>(
       path: '?includePicture=$includePicture',
       mapper: (json) {
         User user = User(
@@ -79,8 +79,8 @@ class UMMobileUser {
   }
 
   /// Retrieve the user profile picture
-  Future<String> getProfilePicture() async {
-    return await _http.customGet(
+  Future<String> getProfilePicture() {
+    return _http.customGet(
       path: '/picture',
       mapper: (json) => json['base64'],
     );
