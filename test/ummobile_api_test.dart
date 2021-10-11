@@ -7,26 +7,24 @@ import 'package:ummobile_sdk/ummobile_sdk.dart';
 void main() {
   late UMMobileSDK employee;
   late UMMobileSDK student;
-  String userStudent = Platform.environment['USER_STUDENT'] ?? '';
+  int userStudent = 1130745;
+  int userEmployee = 9830438;
   String passStudent = Platform.environment['PASSWORD_STUDENT'] ?? '';
-  String userEmployee = Platform.environment['USER_EMPLOYEE'] ?? '';
   String passEmployee = Platform.environment['PASSWORD_EMPLOYEE'] ?? '';
   String execEnv = env['EXEC_ENV'] ?? Platform.environment['EXEC_ENV'] ?? '';
   if (execEnv != 'github_actions') {
     setUpAll(() async {
       load();
-      userStudent = env['USER_STUDENT'] ?? userStudent;
       passStudent = env['PASSWORD_STUDENT'] ?? passStudent;
-      userEmployee = env['USER_EMPLOYEE'] ?? userEmployee;
       passEmployee = env['PASSWORD_EMPLOYEE'] ?? passEmployee;
 
       UMMobileAuth auth = UMMobileSDK.auth();
       Token studentToken = await auth.getToken(
-        username: int.parse(userStudent),
+        username: userStudent,
         password: passStudent,
       );
       Token employeeToken = await auth.getToken(
-        username: int.parse(userEmployee),
+        username: userEmployee,
         password: passEmployee,
       );
 
@@ -42,7 +40,7 @@ void main() {
   group('[Auth]', () {
     test('Get token', () async {
       final Token token = await UMMobileSDK.auth()
-          .getToken(username: int.parse(userStudent), password: passStudent);
+          .getToken(username: userStudent, password: passStudent);
       expect(token, isNotNull);
       expect(token.accessToken, isNotNull);
     });
@@ -165,7 +163,7 @@ void main() {
     test('Get user: Student', () async {
       User user = await student.user.getInformation();
 
-      expect(user.id, 1130745);
+      expect(user.id, userStudent);
       expect(user.role, Roles.Student);
       expect(user.employee, isNull);
       expect(user.image, isNull);
@@ -185,7 +183,7 @@ void main() {
     test('Get user: Employee', () async {
       User user = await employee.user.getInformation();
 
-      expect(user.id, 9830438);
+      expect(user.id, userEmployee);
       expect(user.role, Roles.Employee);
       expect(user.employee!.contract, ContractTypes.Contract);
       expect(user.student, isNull);
