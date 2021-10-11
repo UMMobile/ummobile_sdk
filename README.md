@@ -26,6 +26,7 @@ The `UMMobileSDK` contains an attribute for each API section.
 
 - `user`: contains the functions to get the user information.
 - `academic`: contains the functions to get the academic information.
+- `financial`: contains the functions to get the financial information.
 - `catalogue`: contains the functions to get the general information.
 
 ## Individual vs Main class
