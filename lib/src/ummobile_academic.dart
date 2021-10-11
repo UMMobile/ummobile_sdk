@@ -14,6 +14,9 @@ class UMMobileAcademic {
 
   /// Main UMMobile academic client constructor.
   ///
+  /// **WARNING:**
+  /// Some information may vary in certain periods such as vacations because if the student works at the university they will put a different plan while he works to give him the basic rights such as residence or student insurance. To see the current plan see [this.getPlan()] function.
+  ///
   /// Require the [auth] token to authenticate the requests, and the API [version] where to make the calls, which is the latests by default (v1).
   UMMobileAcademic({
     required String auth,
@@ -27,7 +30,7 @@ class UMMobileAcademic {
           ),
         );
 
-  /// Retrieve the user archives
+  /// Retrieve the user archives.
   Future<List<Archive>> getArchives() {
     return this._http.customGet(
           path: '/archives',
@@ -46,7 +49,7 @@ class UMMobileAcademic {
         );
   }
 
-  /// Retrieve all the user semesters
+  /// Retrieve all the user semesters.
   Future<AllSemesters> getAllSemesters() {
     return this._http.customGet<AllSemesters>(
           path: '/semesters',
@@ -60,10 +63,27 @@ class UMMobileAcademic {
         );
   }
 
+  /// Retrieve the current semester.
   Future<Semester> getCurrentSemester() {
     return this._http.customGet(
           path: '/semesters/current',
           mapper: (json) => _mapSemester(json),
+        );
+  }
+
+  /// Retrieve the current plan.
+  Future<String> getPlan() {
+    return this._http.customGet(
+          path: '/plan',
+          mapper: (json) => json['plan'],
+        );
+  }
+
+  /// Retrieve the global average.
+  Future<double> getGlobalAverage() {
+    return this._http.customGet(
+          path: '/semesters/average',
+          mapper: (json) => json['average'],
         );
   }
 

@@ -64,13 +64,25 @@ void main() {
       expect(allSemesters.semesters.first.order, 1);
       expect(allSemesters.semesters.first.subjects.first.extras.semester, 1);
     });
-  });
 
-  test('Get current semester', () async {
-    Semester semester = await student.academic.getCurrentSemester();
+    test('Get current semester', () async {
+      Semester semester = await student.academic.getCurrentSemester();
 
-    expect(semester.planId, 'ISC2010*');
-    expect(semester.subjects, isNotEmpty);
+      expect(semester.planId, 'ISC2010*');
+      expect(semester.subjects, isNotEmpty);
+    });
+
+    test('Get current plan', () async {
+      String planId = await student.academic.getPlan();
+
+      expect(planId, 'ISC2010*');
+    });
+
+    test('Get global average', () async {
+      double average = await student.academic.getGlobalAverage();
+
+      expect(average, greaterThan(0));
+    });
   });
 
   group('[Catalogue]', () {
