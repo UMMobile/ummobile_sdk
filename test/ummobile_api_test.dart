@@ -12,6 +12,7 @@ void main() {
   String passStudent = Platform.environment['PASSWORD_STUDENT'] ?? '';
   String passEmployee = Platform.environment['PASSWORD_EMPLOYEE'] ?? '';
   String execEnv = env['EXEC_ENV'] ?? Platform.environment['EXEC_ENV'] ?? '';
+
   if (execEnv != 'github_actions') {
     setUpAll(() async {
       load();
