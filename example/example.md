@@ -215,7 +215,7 @@ print(withDeletedNotifications.any((notification) => notification.isDeleted)); /
 ```
 
 #### `getOne(String notificationId)`
-Return a single notification. The usage of this function is similar to `getAll()` but with one positional argument (`notificationId`).
+Returns a single notification. The usage of this function is similar to `getAll()` but with one positional argument (`notificationId`).
 ```dart
 Notification notification =
           await sdk.notifications.getOne('NOTIFICATION_ID');
@@ -225,7 +225,7 @@ Notification notification =
       await sdk.notifications.getOne(
           'NOTIFICATION_ID',
           languageCode: 'es', // Use Spanish
-          ignoreDelete: false, // Allow search for a delete notification.
+          ignoreDelete: false, // Allow search for a deleted notification.
       );
 ```
 
@@ -262,18 +262,15 @@ Send a new user event for a notification.
 
 Some events are "clicked" that is equivalent to read or see the notification, and "received" that means that the notification was received by the user cellphone.
 ```dart
-Notification notification =
-          await sdk.notifications.getOne('NOTIFICATION_ID');
-
 // Send a received event.
 await sdk.notifications.sendAnalitycs(
-  notificationId: notification.id,
+  notificationId: 'NOTIFICATION_ID',
   event: NotificationEvents.Received,
 );
 
 // Send a clicked event.
 await sdk.notifications.sendAnalitycs(
-  notificationId: notification.id,
+  notificationId: 'NOTIFICATION_ID',
   event: NotificationEvents.Clicked,
 );
 
