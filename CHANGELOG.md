@@ -19,3 +19,4 @@
 > Release date: 12/Oct/2021
 * Adds questionnaire section
 * Adds tests for utils functions
+* Adds test coverage

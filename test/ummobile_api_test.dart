@@ -291,4 +291,85 @@ void main() {
       expect(user.student, isNull);
     });
   });
+
+  group('[Utils]', () {
+    test('getRoleFromInt', () {
+      Roles unknown = getRoleFromInt(0);
+      Roles student = getRoleFromInt(1);
+      Roles employee = getRoleFromInt(2);
+      Roles outOfBoundA = getRoleFromInt(3);
+      Roles outOfBoundB = getRoleFromInt(18);
+
+      expect(unknown, Roles.Unknown);
+      expect(student, Roles.Student);
+      expect(employee, Roles.Employee);
+      expect(outOfBoundA, Roles.Unknown);
+      expect(outOfBoundB, Roles.Unknown);
+    });
+
+    test('getContractFromInt', () {
+      ContractTypes denominational = getContractFromInt(0);
+      ContractTypes interDivision = getContractFromInt(1);
+      ContractTypes interUnion = getContractFromInt(2);
+      ContractTypes missionaryService = getContractFromInt(3);
+      ContractTypes retiredWorkerService = getContractFromInt(4);
+      ContractTypes contract = getContractFromInt(5);
+      ContractTypes voluntaryAdventistService = getContractFromInt(6);
+      ContractTypes hourlyTeacher = getContractFromInt(7);
+      ContractTypes socialService = getContractFromInt(8);
+      ContractTypes hospitalLaCarlota = getContractFromInt(9);
+      ContractTypes others = getContractFromInt(10);
+      ContractTypes daycareMisAmiguitos = getContractFromInt(11);
+      ContractTypes unknown = getContractFromInt(12);
+
+      ContractTypes outOfBoundA = getContractFromInt(17);
+      ContractTypes outOfBoundB = getContractFromInt(18);
+
+      expect(unknown, ContractTypes.Unknown);
+      expect(denominational, ContractTypes.Denominational);
+      expect(interDivision, ContractTypes.InterDivision);
+      expect(interUnion, ContractTypes.InterUnion);
+      expect(missionaryService, ContractTypes.MissionaryService);
+      expect(retiredWorkerService, ContractTypes.RetiredWorkerService);
+      expect(contract, ContractTypes.Contract);
+      expect(
+          voluntaryAdventistService, ContractTypes.VoluntaryAdventistService);
+      expect(hourlyTeacher, ContractTypes.HourlyTeacher);
+      expect(socialService, ContractTypes.SocialService);
+      expect(hospitalLaCarlota, ContractTypes.HospitalLaCarlota);
+      expect(others, ContractTypes.Others);
+      expect(daycareMisAmiguitos, ContractTypes.DaycareMisAmiguitos);
+
+      expect(outOfBoundA, ContractTypes.Unknown);
+      expect(outOfBoundB, ContractTypes.Unknown);
+    });
+
+    test('getMovementsTypeFromString', () {
+      MovementTypes credit = getMovementsTypeFromString('C');
+      MovementTypes debit = getMovementsTypeFromString('D');
+      MovementTypes unknown = getMovementsTypeFromString('');
+      MovementTypes unknownA = getMovementsTypeFromString('ASD');
+      MovementTypes unknownB = getMovementsTypeFromString('This is unknown');
+
+      expect(credit, MovementTypes.Credit);
+      expect(debit, MovementTypes.Debit);
+      expect(unknown, MovementTypes.Unknown);
+      expect(unknownA, MovementTypes.Unknown);
+      expect(unknownB, MovementTypes.Unknown);
+    });
+
+    test('getLanguageFromString', () {
+      Languages spanish = getLanguageFromString('es');
+      Languages english = getLanguageFromString('en');
+      Languages unknown = getLanguageFromString('');
+      Languages unknownA = getLanguageFromString('ASD');
+      Languages unknownB = getLanguageFromString('This is unknown');
+
+      expect(spanish, Languages.Es);
+      expect(english, Languages.En);
+      expect(unknown, Languages.Es);
+      expect(unknownA, Languages.Es);
+      expect(unknownB, Languages.Es);
+    });
+  });
 }
