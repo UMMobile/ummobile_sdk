@@ -136,6 +136,7 @@ void main() {
       expect(movements.lastYear, isNotEmpty);
       expect(movements.lastYear!.first.date, isNull);
       expect(movements.lastYear!.first.isDebit, isTrue);
+      expect(movements.lastYear!.first.isCredit, isFalse);
     });
   });
 
@@ -173,6 +174,7 @@ void main() {
       expect(notifications.first.id, notification.id);
       expect(notification.heading, isNot(notification.headingTr('es')));
       expect(notification.heading, notification.headingTr('en'));
+      expect(notification.content, notification.contentTr('en'));
     });
 
     test('Get one: deleted', () async {
@@ -266,9 +268,18 @@ void main() {
       User user = await student.user.getInformation();
 
       expect(user.id, userStudent);
-      expect(user.role, Roles.Student);
-      expect(user.employee, isNull);
+      expect(user.isStudent, isTrue);
       expect(user.image, isNull);
+
+      expect(user.employee, isNull);
+      expect(user.student, isNotNull);
+
+      expect(user.student!.academic, isNotNull);
+      expect(user.student!.isInternal, isTrue);
+      expect(user.student!.isExternal, isFalse);
+      expect(user.student!.residenceIsUnknown, isFalse);
+      expect(user.student!.isSignedUp, isFalse);
+      expect(user.student!.isScholarshipStudent, isFalse);
     });
 
     test('Get user: Student with picture', () async {
@@ -370,6 +381,20 @@ void main() {
       expect(unknown, Languages.Es);
       expect(unknownA, Languages.Es);
       expect(unknownB, Languages.Es);
+    });
+
+    test('getResidenceFromInt', () {
+      Residence unknown = getResidenceFromInt(0);
+      Residence internalType = getResidenceFromInt(1);
+      Residence externalType = getResidenceFromInt(2);
+      Residence unknownA = getResidenceFromInt(8);
+      Residence unknownB = getResidenceFromInt(12);
+
+      expect(internalType, Residence.Internal);
+      expect(externalType, Residence.External);
+      expect(unknown, Residence.Unknown);
+      expect(unknownA, Residence.Unknown);
+      expect(unknownB, Residence.Unknown);
     });
   });
 }

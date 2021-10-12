@@ -57,6 +57,27 @@ class UMMobileUser {
             baptized: json['student']['baptized'],
             religion: json['student']['religion'],
             type: json['student']['type'],
+            academic: json['student']['academic'] != null
+                ? Academic(
+                    modality: json['student']['academic']['modality'],
+                    signedUp: json['student']['academic']['signedUp'],
+                    residence: getResidenceFromInt(
+                        json['student']['academic']['residence']),
+                    dormitory: json['student']['academic']['dormitory'],
+                  )
+                : null,
+            scholarship: json['student']['scholarship'] != null
+                ? Scholarship(
+                    workplace: json['student']['scholarship']['workplace'],
+                    position: json['student']['scholarship']['position'],
+                    startDate:
+                        DateTime(json['student']['scholarship']['startDate']),
+                    endDate:
+                        DateTime(json['student']['scholarship']['endDate']),
+                    hours: json['student']['scholarship']['hours'],
+                    status: json['student']['scholarship']['status'],
+                  )
+                : null,
           );
         } else if (user.isEmployee) {
           user.employee = EmployeeExtras(

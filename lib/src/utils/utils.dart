@@ -4,23 +4,19 @@ extension IntegerConditionals on int {
   bool isValidIndexOf(List list) => this >= 0 && this < list.length;
 }
 
-/// Returns the role type of the given [role] string.
-Roles getRoleFromInt(int role) {
-  if (role.isValidIndexOf(Roles.values)) {
-    return Roles.values[role];
-  } else {
-    return Roles.Unknown;
-  }
-}
+/// Returns the role type of the given [role] int.
+Roles getRoleFromInt(int role) => getFromEnum(
+      value: role,
+      validValues: Roles.values,
+      defaultValue: Roles.Unknown,
+    );
 
-/// Returns the contract type of the given [contract] string.
-ContractTypes getContractFromInt(int contract) {
-  if (contract.isValidIndexOf(ContractTypes.values)) {
-    return ContractTypes.values[contract];
-  } else {
-    return ContractTypes.Unknown;
-  }
-}
+/// Returns the contract type of the given [contract] int.
+ContractTypes getContractFromInt(int contract) => getFromEnum(
+      value: contract,
+      validValues: ContractTypes.values,
+      defaultValue: ContractTypes.Unknown,
+    );
 
 /// Returns the movement type of the given [movementType] string.
 MovementTypes getMovementsTypeFromString(String movementType) {
@@ -44,5 +40,24 @@ Languages getLanguageFromString(String languageCode) {
     case 'es':
     default:
       return Languages.Es;
+  }
+}
+
+/// Returns the residence type of the given [residence] int.
+Residence getResidenceFromInt(int residence) => getFromEnum(
+      value: residence,
+      validValues: Residence.values,
+      defaultValue: Residence.Unknown,
+    );
+
+T getFromEnum<T>({
+  required int value,
+  required List<T> validValues,
+  required T defaultValue,
+}) {
+  if (value.isValidIndexOf(validValues)) {
+    return validValues[value];
+  } else {
+    return defaultValue;
   }
 }

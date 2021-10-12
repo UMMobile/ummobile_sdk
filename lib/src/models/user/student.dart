@@ -19,6 +19,28 @@ class StudentExtras {
   /// The scholar information of the student.
   Scholarship? scholarship;
 
+  /// Returns `true` if the student is internal.
+  bool get isInternal => this.academic != null
+      ? this.academic!.residence == Residence.Internal
+      : false;
+
+  /// Returns `true` if the student is external.
+  bool get isExternal => this.academic != null
+      ? this.academic!.residence == Residence.External
+      : false;
+
+  /// Returns `true` if the student residence is unknown.
+  bool get residenceIsUnknown => this.academic != null
+      ? this.academic!.residence == Residence.Unknown
+      : false;
+
+  /// Returns `true` if the student is signed up.
+  bool get isSignedUp =>
+      this.academic != null ? this.academic!.signedUp : false;
+
+  /// Returns `true` if the student have a scholarship.
+  bool get isScholarshipStudent => this.scholarship != null;
+
   /// The StudentExtras constructor.
   StudentExtras({
     required this.baptized,
