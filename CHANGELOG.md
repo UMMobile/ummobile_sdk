@@ -10,5 +10,10 @@
 * Rename `getUser()` to `getInformation()`
 
 ## 0.0.1-beta3
-> Release date: 11/Oct/2021
+> Release date: 12/Oct/2021
 * Adds all academic section
+* Adds notifications section
+
+## 0.0.1-beta4
+> Release date: 12/Oct/2021
+* Adds questionnaire section

@@ -18,6 +18,12 @@
     - [Financial](#financial)
       - [`getBalances()`](#getbalances)
       - [`getMovements(String balance)`](#getmovementsstring-balance)
+    - [Notifications](#notifications)
+      - [`getAll()`](#getall)
+      - [`getOne(String notificationId)`](#getonestring-notificationid)
+      - [`markAsSeen(String notificationId)`](#markasseenstring-notificationid)
+      - [`delete(String notificationId)`](#deletestring-notificationid)
+      - [`sendAnalytics()`](#sendanalytics)
 
 # Initialization
 To initialize a new instance a token is needed.
@@ -158,4 +164,117 @@ print(movements.lastYear); // null
 Movements movements = await sdk.financial.getMovements('BALANCE_ID', includeLastYear: true);
 print(movements.current); // [Instance of Movement, Instance of Movement, ...]
 print(movements.lastYear); // [Instance of Movement, Instance of Movement, ...]
+```
+
+### Notifications
+The notifications information can be found in the `notifications` attribute on the `UMMobileSDK` class or using the `UMMobileNotifications` class.
+
+Can receive default values for optional named arguments for some functions like `getAll()` or `getOne()`:
+```dart
+UMMobileNotifications notificationsSection = UMMobileNotifications(
+  // required
+  auth: 'TOKEN',
+  // Set "es" as default argument value for all functions that don't pass `languageCode`.
+  languageCode: 'es',
+  // Set false as default argument value for all functions that don't pass `ignoreDeleted`.
+  ignoreDeleted: false,
+);
+```
+
+#### `getAll()`
+Returns the list of the notifications sent to the user.
+```dart
+// Will use english and will ignore deleted nofitications by default.
+List<Notification> defaultValues =
+          await sdk.notifications.getAll();
+
+print(defaultValues.first.heading); // Hi
+print(defaultValues.any((notification) => notification.isDeleted)); // false
+
+// With english language.
+List<Notification> english =
+          await sdk.notifications.getAll(languageCode: 'en');
+
+print(english.first.heading); // Hi
+
+// Change to "es" to use Spanish by default.
+List<Notification> spanish =
+          await sdk.notifications.getAll(languageCode: 'es');
+
+print(spanish.first.heading); // Hola
+
+// Or get differente of default
+print(spanish.first.headingTr('en')); // Hi
+print(spanish.first.headingTr('es')); // Hola
+
+// To include deleted notifications set `ignoreDeleted` to false
+List<Notification> withDeletedNotifications =
+          await sdk.notifications.getAll(ignoreDeleted: false);
+
+print(withDeletedNotifications.any((notification) => notification.isDeleted)); // true if user had deleted at least one notification.
+```
+
+#### `getOne(String notificationId)`
+Return a single notification. The usage of this function is similar to `getAll()` but with one positional argument (`notificationId`).
+```dart
+Notification notification =
+          await sdk.notifications.getOne('NOTIFICATION_ID');
+
+// Also can receive a languageCode or if should ignoreDeleted notifications.
+Notification notification =
+      await sdk.notifications.getOne(
+          'NOTIFICATION_ID',
+          languageCode: 'es', // Use Spanish
+          ignoreDelete: false, // Allow search for a delete notification.
+      );
+```
+
+#### `markAsSeen(String notificationId)`
+Mark a notification as seen.
+```dart
+Notification notification =
+          await sdk.notifications.getOne('NOTIFICATION_ID');
+
+print(notification.isSeen); // false
+
+Notification seenNotification =
+          await sdk.notifications.markAsSeen(notification.id);
+
+print(seenNotification.isSeen); // true
+```
+
+#### `delete(String notificationId)`
+Delete a notification.
+```dart
+Notification notification =
+          await sdk.notifications.getOne('NOTIFICATION_ID');
+
+print(notification.isDeleted); // false
+
+Notification deletedNotification =
+          await sdk.notifications.delete(notification.id);
+
+print(deletedNotification.isDeleted); // true
+```
+
+#### `sendAnalytics()`
+Send a new user event for a notification.
+
+Some events are "clicked" that is equivalent to read or see the notification, and "received" that means that the notification was received by the user cellphone.
+```dart
+Notification notification =
+          await sdk.notifications.getOne('NOTIFICATION_ID');
+
+// Send a received event.
+await sdk.notifications.sendAnalitycs(
+  notificationId: notification.id,
+  event: NotificationEvents.Received,
+);
+
+// Send a clicked event.
+await sdk.notifications.sendAnalitycs(
+  notificationId: notification.id,
+  event: NotificationEvents.Clicked,
+);
+
 ```
