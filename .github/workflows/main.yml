@@ -22,8 +22,14 @@ jobs:
         run: flutter pub get
         
       - name: Test package
-        run: flutter test
+        run: flutter test --coverage
         env:
           PASSWORD_STUDENT: ${{ secrets.PASSWORD_STUDENT }}
           PASSWORD_EMPLOYEE: ${{ secrets.PASSWORD_EMPLOYEE }}
           EXEC_ENV: 'github_actions'
+
+      - name: Upload coverage to Codecov 
+        uses: codecov/codecov-action@v1 
+        with: 
+          token: ${{ secrets.CODECOV_TOKEN }} 
+          file: coverage/lcov.info
