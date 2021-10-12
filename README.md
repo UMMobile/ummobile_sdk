@@ -1,5 +1,7 @@
 SDK to connect to the UMMobile API
 
+![Test](https://github.com/UMMobile/ummobile_sdk/actions/workflows/main.yml/badge.svg)
+
 # Getting Started
 This package was made for the UMMobile app.
 
