@@ -22,7 +22,7 @@ ContractTypes getContractFromInt(int contract) {
   }
 }
 
-/// Return the movement type of the given [movementType] string.
+/// Returns the movement type of the given [movementType] string.
 MovementTypes getMovementsTypeFromString(String movementType) {
   switch (movementType) {
     case 'C':
@@ -31,5 +31,18 @@ MovementTypes getMovementsTypeFromString(String movementType) {
       return MovementTypes.Debit;
     default:
       return MovementTypes.Unknown;
+  }
+}
+
+/// Returns the language type from the [languageCode].
+///
+/// If any language is recognized then returns [Language.Es] by default.
+Languages getLanguageFromString(String languageCode) {
+  switch (languageCode) {
+    case 'en':
+      return Languages.En;
+    case 'es':
+    default:
+      return Languages.Es;
   }
 }

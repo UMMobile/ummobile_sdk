@@ -8,3 +8,4 @@ export 'academic/archive.dart';
 export 'academic/semester.dart';
 export 'financial/movement.dart';
 export 'financial/balance.dart';
+export 'notifications/notification.dart';

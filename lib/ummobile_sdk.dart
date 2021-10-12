@@ -6,12 +6,14 @@ import 'package:ummobile_sdk/src/ummobile_user.dart';
 import 'package:ummobile_sdk/src/ummobile_auth.dart';
 import 'package:ummobile_sdk/src/ummobile_academic.dart';
 import 'package:ummobile_sdk/src/ummobile_financial.dart';
+import 'package:ummobile_sdk/src/ummobile_notifications.dart';
 
 // Export individual clients.
 export 'src/ummobile_auth.dart';
 export 'src/ummobile_user.dart';
 export 'src/ummobile_academic.dart';
 export 'src/ummobile_financial.dart';
+export 'src/ummobile_notifications.dart';
 export 'src/ummobile_catalogue.dart';
 // Export components
 export 'src/models/models.dart';
@@ -35,6 +37,9 @@ class UMMobileSDK {
   /// The financial section of the API.
   UMMobileFinancial financial;
 
+  /// The notifications section of the API.
+  UMMobileNotifications notifications;
+
   /// The catalogue section of the API.
   UMMobileCatalogue catalogue;
 
@@ -51,5 +56,7 @@ class UMMobileSDK {
   })  : this.user = UMMobileUser(auth: token, version: latestVersion),
         this.academic = UMMobileAcademic(auth: token, version: latestVersion),
         this.financial = UMMobileFinancial(auth: token, version: latestVersion),
+        this.notifications =
+            UMMobileNotifications(auth: token, version: latestVersion),
         this.catalogue = UMMobileCatalogue(auth: token, version: latestVersion);
 }

@@ -139,6 +139,105 @@ void main() {
     });
   });
 
+  group('[Notifications]', () {
+    test('Get all: languages', () async {
+      List<Notification> notifications =
+          await student.notifications.getAll(languageCode: 'en');
+
+      expect(notifications, isNotEmpty);
+      expect(notifications.first.heading,
+          isNot(notifications.first.headingTr('es')));
+      expect(notifications.first.heading, notifications.first.headingTr('en'));
+    });
+
+    test('Get all: include deleted', () async {
+      List<Notification> notifications = await student.notifications.getAll();
+
+      List<Notification> notificationsWithDeletedOnes =
+          await student.notifications.getAll(ignoreDeleted: false);
+
+      expect(notifications, isNotEmpty);
+      expect(notificationsWithDeletedOnes, isNotEmpty);
+      expect(notificationsWithDeletedOnes.length,
+          greaterThan(notifications.length));
+    });
+
+    test('Get one: languages', () async {
+      List<Notification> notifications =
+          await student.notifications.getAll(languageCode: 'en');
+      expect(notifications, isNotEmpty);
+
+      Notification notification = await student.notifications
+          .getOne(notifications.first.id, languageCode: 'en');
+
+      expect(notifications.first.id, notification.id);
+      expect(notification.heading, isNot(notification.headingTr('es')));
+      expect(notification.heading, notification.headingTr('en'));
+    });
+
+    test('Get one: deleted', () async {
+      List<Notification> notifications =
+          await student.notifications.getAll(ignoreDeleted: false);
+      expect(notifications, isNotEmpty);
+      expect(notifications.any((element) => element.isDeleted), isTrue);
+
+      Notification notification = await student.notifications.getOne(
+          notifications.firstWhere((element) => element.isDeleted).id,
+          ignoreDeleted: false);
+
+      expect(notification.id, notifications.first.id);
+      expect(notification.isDeleted, isTrue);
+    });
+
+    test('Send analytics', () async {
+      List<Notification> notifications =
+          await student.notifications.getAll(languageCode: 'en');
+      expect(notifications, isNotEmpty);
+
+      await student.notifications.sendAnalitycs(
+        notificationId: notifications.first.id,
+        event: NotificationEvents.Received,
+      );
+
+      await student.notifications.sendAnalitycs(
+        notificationId: notifications.first.id,
+        event: NotificationEvents.Clicked,
+      );
+
+      // everything went well and no Exception was thrown.
+      expect(true, isTrue);
+    });
+
+    test('Mark notification as seen', () async {
+      List<Notification> notifications =
+          await student.notifications.getAll(languageCode: 'en');
+      expect(notifications, isNotEmpty);
+
+      Notification notification =
+          await student.notifications.markAsSeen(notifications.first.id);
+
+      expect(notification.isSeen, isTrue);
+      expect(notification.seen!.day, DateTime.now().day);
+      expect(notification.seen!.month, DateTime.now().month);
+      expect(notification.seen!.year, DateTime.now().year);
+    });
+
+    test('Delete notification', () async {
+      List<Notification> notifications =
+          await student.notifications.getAll(languageCode: 'en');
+      expect(notifications, isNotEmpty);
+      expect(notifications.first.isDeleted, isFalse);
+
+      Notification notification =
+          await student.notifications.delete(notifications.first.id);
+
+      expect(notification.isDeleted, isTrue);
+      expect(notification.deleted!.day, DateTime.now().day);
+      expect(notification.deleted!.month, DateTime.now().month);
+      expect(notification.deleted!.year, DateTime.now().year);
+    });
+  });
+
   group('[Catalogue]', () {
     test('Get rules: Student', () async {
       List<Rule> rules = await student.catalogue.getRules();

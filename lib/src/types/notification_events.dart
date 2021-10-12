@@ -1,0 +1,4 @@
+enum NotificationEvents {
+  Received,
+  Clicked,
+}
