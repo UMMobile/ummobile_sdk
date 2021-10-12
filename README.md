@@ -1,6 +1,7 @@
 SDK to connect to the UMMobile API
 
 ![Test](https://github.com/UMMobile/ummobile_sdk/actions/workflows/main.yml/badge.svg)
+[![codecov](https://codecov.io/gh/UMMobile/ummobile_sdk/branch/main/graph/badge.svg?token=9464C1EVLS)](https://codecov.io/gh/UMMobile/ummobile_sdk)
 
 # Getting Started
 This package was made for the UMMobile app.
