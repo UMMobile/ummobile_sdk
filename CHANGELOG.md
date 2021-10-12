@@ -13,7 +13,9 @@
 > Release date: 12/Oct/2021
 * Adds all academic section
 * Adds notifications section
+* Export utils functions
 
 ## 0.0.1-beta4
 > Release date: 12/Oct/2021
 * Adds questionnaire section
+* Adds tests for utils functions

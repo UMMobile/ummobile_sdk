@@ -18,6 +18,7 @@ export 'src/ummobile_catalogue.dart';
 // Export components
 export 'src/models/models.dart';
 export 'src/types/types.dart';
+export 'src/utils/utils.dart';
 export 'src/statics.dart';
 
 /// The entry point of the UMMobile SDK
