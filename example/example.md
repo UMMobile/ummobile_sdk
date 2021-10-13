@@ -24,6 +24,14 @@
       - [`markAsSeen(String notificationId)`](#markasseenstring-notificationid)
       - [`delete(String notificationId)`](#deletestring-notificationid)
       - [`sendAnalytics()`](#sendanalytics)
+    - [COVID questionnaire](#covid-questionnaire)
+      - [`getAnswers()`](#getanswers)
+      - [`getTodayAnswers()`](#gettodayanswers)
+      - [`getExtras()`](#getextras)
+      - [`getValidation()`](#getvalidation)
+      - [`haveResponsiveLetter()`](#haveresponsiveletter)
+      - [`updateExtras()`](#updateextras)
+      - [`saveAnswer(CovidQuestionnaireAnswer answer)`](#saveanswercovidquestionnaireanswer-answer)
 
 # Initialization
 To initialize a new instance a token is needed.
@@ -230,7 +238,7 @@ Notification notification =
 ```
 
 #### `markAsSeen(String notificationId)`
-Mark a notification as seen.
+Marks a notification as seen.
 ```dart
 Notification notification =
           await sdk.notifications.getOne('NOTIFICATION_ID');
@@ -244,7 +252,7 @@ print(seenNotification.isSeen); // true
 ```
 
 #### `delete(String notificationId)`
-Delete a notification.
+Deletes a notification.
 ```dart
 Notification notification =
           await sdk.notifications.getOne('NOTIFICATION_ID');
@@ -258,7 +266,7 @@ print(deletedNotification.isDeleted); // true
 ```
 
 #### `sendAnalytics()`
-Send a new user event for a notification.
+Sends a new user event for a notification.
 
 Some events are "clicked" that is equivalent to read or see the notification, and "received" that means that the notification was received by the user cellphone.
 ```dart
@@ -274,4 +282,107 @@ await sdk.notifications.sendAnalitycs(
   event: NotificationEvents.Clicked,
 );
 
+```
+
+### COVID questionnaire
+The COVID questionnaire information can be found in the `questionnaire.covid` attribute on the `UMMobileSDK` class, in the `covid` attribute on the `UMMobileQuestionnaire` class, or using the `UMMobileCovid` class.
+
+**Note:**
+The class for the questionnare information (`UMMobileQuestionnaire`) is empty while there is no service to manage differente questionnaires yet so this section will be for the COVID questionnaire class.
+
+#### `getAnswers()`
+Returns all the user answers to the questionnaire.
+
+Uses the `CovidQuestionnaireAnswerDatabase` to differentiate from the request body to save a new answer (see `saveAnswer()`) and to avoid setting some fields as optional when they are automatically configured in the database, so they will always come in the answer.
+```dart
+// Get all answers
+List<CovidQuestionnaireAnswerDatabase> answers =
+          await sdk.questionnaire.covid.getAnswers();
+
+// Get all answers for current day
+List<CovidQuestionnaireAnswerDatabase> todayAnswers =
+          await sdk.questionnaire.covid.getAnswers(filter: Answers.Today);
+```
+
+#### `getTodayAnswers()`
+Returns all the user answers to the questionnaire on the current day (from the server perspective).
+
+Uses `getAnswers(filter: Answers.Today)` under the hood.
+```dart
+List<CovidQuestionnaireAnswerDatabase> todayAnswers =
+          await sdk.questionnaire.covid.getTodayAnswers();
+```
+
+#### `getExtras()`
+Returns extra critical information about COVID and the user.
+```dart
+UserCovidInformation extras =
+          await sdk.questionnaire.covid.getExtras();
+
+print(extras.isVaccinated); // false or true
+print(extras.haveCovid); // false or true
+print(extras.isSuspect); // false or true
+print(extras.isInQuarantine); // false or true
+```
+
+#### `getValidation()`
+Returns the validation of the user information using the extra critial information (see `getExtras()`) to know if the user can or cannot enter to the campus.
+
+**Note:**
+This function must be used before allowing the user to respond to the questionnaire to know if he can access the questionnaire or if his entrance to the campus should be rejected.
+```dart
+CovidValidation validation =
+          await sdk.questionnaire.covid.getValidation();
+
+print(validation.allowAccess); // if can or cannot enter
+print(validation.reason); // the reason of the validations result
+print(validation.qrUrl); // the URI to the QR image
+```
+
+#### `haveResponsiveLetter()`
+Returns if the user has uploaded or not his responsive letter.
+```dart
+bool haveResponsiveLetter =
+          await sdk.questionnaire.covid.haveResponsiveLetter();
+```
+
+#### `updateExtras()`
+Updates fields of the extra user information about COVID.
+
+**Note:** At this time we can only update if the user is suspicious or not. If the fields are updated, the start date of the suspicion is also updated.
+
+Returns if the information was udpated & throws a `FormatException` if none field is set to update (at this time only `isSuspect`).
+```dart
+bool updated =
+          await sdk.questionnaire.covid.updateExtras(isSuspect: false);
+```
+
+#### `saveAnswer(CovidQuestionnaireAnswer answer)`
+Saves a new user answer to the COVID questionnaire and returns a nbew validation of the user information.
+
+**Note:**
+The answers are validated and can update additional user information to establish the user as a suspect.
+```dart
+CovidQuestionnaireAnswer answer = CovidQuestionnaireAnswer(
+  countries: [
+    RecentCountry(
+      country: 'México',
+      city: 'Montemorelos',
+    ),
+  ],
+  recentContact: RecentContact(yes: false),
+  majorSymptoms: {
+    'tos': false,
+  },
+  minorSymptoms: {
+    'dolorDePancita': false,
+  },
+);
+
+CovidValidation validation =
+          await sdk.questionnaire.covid.saveAnswer(answer);
+
+print(validation.allowAccess); // if can or cannot enter
+print(validation.reason); // the reason of the validations result
+print(validation.qrUrl); // the URI to the QR image
 ```

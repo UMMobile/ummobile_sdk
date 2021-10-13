@@ -20,3 +20,4 @@
 * Adds questionnaire section
 * Adds tests for utils functions
 * Adds test coverage
+* Refactors `phone` field to optional.

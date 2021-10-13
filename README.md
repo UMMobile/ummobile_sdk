@@ -31,6 +31,8 @@ The `UMMobileSDK` contains an attribute for each API section.
 - `academic`: contains the functions to get the academic information.
 - `financial`: contains the functions to get the financial information.
 - `notifications`: contains the functions to get the notifications information.
+- `questionnaire`: contains the functions to get the questionnaire information.
+- `questionnaire.covid`: contains the functions to get the COVID questionnaire information.
 - `catalogue`: contains the functions to get the general information.
 
 ## Individual vs Main class
