@@ -43,7 +43,9 @@ class UMMobileUser {
           surnames: json['surnames'],
           extras: UserExtras(
             email: json['extras']['email'],
-            phone: json['extras']['phone'].toString(),
+            phone: json['extras']['phone'] != null
+                ? json['extras']['phone'].toString()
+                : null,
             curp: json['extras']['curp'],
             maritalStatus: json['extras']['maritalStatus'],
             birthday: DateTime.parse(json['extras']['birthday']),

@@ -52,9 +52,6 @@ class UserExtras {
   /// The user email.
   String email;
 
-  /// The user phone number.
-  String phone;
-
   /// The user CURP.
   String curp;
 
@@ -64,12 +61,15 @@ class UserExtras {
   /// The user birthday.
   DateTime birthday;
 
+  /// The user phone number.
+  String? phone;
+
   /// The UserExtras constructor.
   UserExtras({
     required this.email,
-    required this.phone,
     required this.curp,
     required this.maritalStatus,
     required this.birthday,
+    this.phone,
   });
 }
