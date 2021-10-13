@@ -50,6 +50,13 @@ Residence getResidenceFromInt(int residence) => getFromEnum(
       defaultValue: Residence.Unknown,
     );
 
+/// Returns the reason type of the given [reason] int.
+Reasons getReasonFromInt(int reason) => getFromEnum(
+      value: reason,
+      validValues: Reasons.values,
+      defaultValue: Reasons.None,
+    );
+
 T getFromEnum<T>({
   required int value,
   required List<T> validValues,

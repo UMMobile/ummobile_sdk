@@ -240,6 +240,95 @@ void main() {
     });
   });
 
+  group('[Questionnaire]', () {
+    test('Get all answers', () async {
+      List<CovidQuestionnaireAnswerDatabase> answers =
+          await student.questionnaire.covid.getAnswers();
+
+      expect(answers, isList);
+    });
+
+    test('Get today answers', () async {
+      List<CovidQuestionnaireAnswerDatabase> answers =
+          await student.questionnaire.covid.getAnswers(filter: Answers.Today);
+
+      List<CovidQuestionnaireAnswerDatabase> todayAnswers =
+          await student.questionnaire.covid.getTodayAnswers();
+
+      expect(answers.length, todayAnswers.length);
+    });
+
+    test('Get user COVID information', () async {
+      UserCovidInformation extras =
+          await student.questionnaire.covid.getExtras();
+
+      expect(extras.isVaccinated, isFalse);
+      expect(extras.haveCovid, isTrue);
+      expect(extras.isSuspect, isFalse);
+      expect(extras.isInQuarantine, isTrue);
+    });
+
+    test('Get COVID validation', () async {
+      CovidValidation validation =
+          await student.questionnaire.covid.getValidation();
+
+      expect(validation.allowAccess, isTrue);
+      expect(validation.validations.recentArrival, isFalse);
+      expect(validation.validations.isSuspect, isFalse);
+      expect(validation.validations.haveCovid, isFalse);
+      expect(validation.validations.isInQuarantine, isFalse);
+      expect(validation.validations.noResponsiveLetter, isFalse);
+      expect(validation.reason, Reasons.None);
+    });
+
+    test('Get responsive letter', () async {
+      bool haveResponsiveLetter =
+          await student.questionnaire.covid.haveResponsiveLetter();
+
+      expect(haveResponsiveLetter, isTrue);
+    });
+
+    test('Update extra information', () async {
+      bool updated =
+          await student.questionnaire.covid.updateExtras(isSuspect: false);
+
+      expect(updated, isTrue);
+    });
+
+    test('Save a new answer', () async {
+      List<CovidQuestionnaireAnswerDatabase> before =
+          await student.questionnaire.covid.getTodayAnswers();
+
+      CovidQuestionnaireAnswer answer = CovidQuestionnaireAnswer(
+        countries: [
+          RecentCountry(
+            country: 'México',
+            city: 'Montemorelos',
+          ),
+        ],
+        recentContact: RecentContact(yes: false),
+        majorSymptoms: {
+          'tos': false,
+        },
+        minorSymptoms: {
+          'dolorDePancita': false,
+        },
+      );
+
+      CovidValidation validation =
+          await student.questionnaire.covid.saveAnswer(answer);
+
+      List<CovidQuestionnaireAnswerDatabase> after =
+          await student.questionnaire.covid.getTodayAnswers();
+
+      expect(after.length, greaterThan(before.length));
+      expect(
+          validation.qrUrl.toString().contains(userStudent.toString()), isTrue);
+      expect(validation.qrUrl.toString().contains('3bbeff'), isTrue);
+      expect(validation.reason, Reasons.None);
+    });
+  });
+
   group('[Catalogue]', () {
     test('Get rules: Student', () async {
       List<Rule> rules = await student.catalogue.getRules();

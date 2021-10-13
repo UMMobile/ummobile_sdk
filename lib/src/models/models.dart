@@ -9,3 +9,6 @@ export 'academic/semester.dart';
 export 'financial/movement.dart';
 export 'financial/balance.dart';
 export 'notifications/notification.dart';
+export 'questionnaire/covid/covid_questionnaire_answer.dart';
+export 'questionnaire/covid/user_covid_information.dart';
+export 'questionnaire/covid/validations.dart';
