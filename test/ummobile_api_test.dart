@@ -342,6 +342,20 @@ void main() {
 
       expect(countries, isNotEmpty);
     });
+
+    test('Get calendar', () async {
+      Calendar calendar = await student.catalogue.getCalendar();
+
+      expect(calendar.events, isList);
+    });
+
+    test('Get calendar: different roles', () async {
+      Calendar calendarStudent = await student.catalogue.getCalendar();
+      Calendar calendarEmployee = await employee.catalogue.getCalendar();
+
+      expect(calendarStudent.etag, isNot(calendarEmployee.etag));
+      expect(calendarStudent.summary, isNot(calendarEmployee.summary));
+    });
   });
 
   group('[User]', () {

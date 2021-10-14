@@ -21,7 +21,7 @@ class UMMobileAuth {
     required int username,
     required String password,
   }) {
-    return _http.customPost<Token>(
+    return this._http.customPost<Token>(
       body: {
         'username': username,
         'password': password,

@@ -4,6 +4,7 @@ export 'user/student.dart';
 export 'user/user.dart';
 export 'catalogue/rule.dart';
 export 'catalogue/country.dart';
+export 'catalogue/calendar.dart';
 export 'academic/archive.dart';
 export 'academic/semester.dart';
 export 'financial/movement.dart';

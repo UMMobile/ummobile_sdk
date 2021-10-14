@@ -34,78 +34,78 @@ class UMMobileUser {
   ///
   /// Can receive if should [includePicture] of the user. This can increase the response size so by default is `false`.
   Future<User> getInformation({bool includePicture: false}) {
-    return _http.customGet<User>(
-      path: '?includePicture=$includePicture',
-      mapper: (json) {
-        User user = User(
-          id: json['id'],
-          name: json['name'],
-          surnames: json['surnames'],
-          extras: UserExtras(
-            email: json['extras']['email'],
-            phone: json['extras']['phone'] != null
-                ? json['extras']['phone'].toString()
-                : null,
-            curp: json['extras']['curp'],
-            maritalStatus: json['extras']['maritalStatus'],
-            birthday: DateTime.parse(json['extras']['birthday']),
-          ),
-          image: json['image'],
-          role: getRoleFromInt(json['role']),
+    return this._http.customGet<User>(
+          path: '?includePicture=$includePicture',
+          mapper: (json) {
+            User user = User(
+              id: json['id'],
+              name: json['name'],
+              surnames: json['surnames'],
+              extras: UserExtras(
+                email: json['extras']['email'],
+                phone: json['extras']['phone'] != null
+                    ? json['extras']['phone'].toString()
+                    : null,
+                curp: json['extras']['curp'],
+                maritalStatus: json['extras']['maritalStatus'],
+                birthday: DateTime.parse(json['extras']['birthday']),
+              ),
+              image: json['image'],
+              role: getRoleFromInt(json['role']),
+            );
+
+            if (user.isStudent) {
+              user.student = StudentExtras(
+                baptized: json['student']['baptized'],
+                religion: json['student']['religion'],
+                type: json['student']['type'],
+                academic: json['student']['academic'] != null
+                    ? Academic(
+                        modality: json['student']['academic']['modality'],
+                        signedUp: json['student']['academic']['signedUp'],
+                        residence: getResidenceFromInt(
+                            json['student']['academic']['residence']),
+                        dormitory: json['student']['academic']['dormitory'],
+                      )
+                    : null,
+                scholarship: json['student']['scholarship'] != null
+                    ? Scholarship(
+                        workplace: json['student']['scholarship']['workplace'],
+                        position: json['student']['scholarship']['position'],
+                        startDate: DateTime(
+                            json['student']['scholarship']['startDate']),
+                        endDate:
+                            DateTime(json['student']['scholarship']['endDate']),
+                        hours: json['student']['scholarship']['hours'],
+                        status: json['student']['scholarship']['status'],
+                      )
+                    : null,
+              );
+            } else if (user.isEmployee) {
+              user.employee = EmployeeExtras(
+                imss: json['employee']['imss'],
+                rfc: json['employee']['rfc'],
+                contract: getContractFromInt(json['employee']['contract']),
+                positions: List.from(json['employee']['positions'])
+                    .map((e) => Position(
+                          id: e['id'],
+                          department: e['department'],
+                          name: e['name'],
+                        ))
+                    .toList(),
+              );
+            }
+
+            return user;
+          },
         );
-
-        if (user.isStudent) {
-          user.student = StudentExtras(
-            baptized: json['student']['baptized'],
-            religion: json['student']['religion'],
-            type: json['student']['type'],
-            academic: json['student']['academic'] != null
-                ? Academic(
-                    modality: json['student']['academic']['modality'],
-                    signedUp: json['student']['academic']['signedUp'],
-                    residence: getResidenceFromInt(
-                        json['student']['academic']['residence']),
-                    dormitory: json['student']['academic']['dormitory'],
-                  )
-                : null,
-            scholarship: json['student']['scholarship'] != null
-                ? Scholarship(
-                    workplace: json['student']['scholarship']['workplace'],
-                    position: json['student']['scholarship']['position'],
-                    startDate:
-                        DateTime(json['student']['scholarship']['startDate']),
-                    endDate:
-                        DateTime(json['student']['scholarship']['endDate']),
-                    hours: json['student']['scholarship']['hours'],
-                    status: json['student']['scholarship']['status'],
-                  )
-                : null,
-          );
-        } else if (user.isEmployee) {
-          user.employee = EmployeeExtras(
-            imss: json['employee']['imss'],
-            rfc: json['employee']['rfc'],
-            contract: getContractFromInt(json['employee']['contract']),
-            positions: List.from(json['employee']['positions'])
-                .map((e) => Position(
-                      id: e['id'],
-                      department: e['department'],
-                      name: e['name'],
-                    ))
-                .toList(),
-          );
-        }
-
-        return user;
-      },
-    );
   }
 
   /// Retrieve the user profile picture
   Future<String> getProfilePicture() {
-    return _http.customGet(
-      path: '/picture',
-      mapper: (json) => json['base64'],
-    );
+    return this._http.customGet(
+          path: '/picture',
+          mapper: (json) => json['base64'],
+        );
   }
 }

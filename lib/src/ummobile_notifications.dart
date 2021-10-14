@@ -51,8 +51,10 @@ class UMMobileNotifications {
     return this._http.customGet(
           path: '?ignoreDeleted=${ignoreDeleted ?? this.ignoreDeleted}',
           mapper: (json) => List.from(json['notifications'])
-              .map<Notification>((e) => this._mapNotification(e,
-                  languageCode: languageCode ?? this.languageCode))
+              .map<Notification>((e) => this._mapNotification(
+                    e,
+                    languageCode: languageCode ?? this.languageCode,
+                  ))
               .toList(),
         );
   }
@@ -68,10 +70,13 @@ class UMMobileNotifications {
     bool? ignoreDeleted,
   }) {
     return this._http.customGet(
-        path:
-            '/$notificationId?ignoreDeleted=${ignoreDeleted ?? this.ignoreDeleted}',
-        mapper: (json) => this._mapNotification(json,
-            languageCode: languageCode ?? this.languageCode));
+          path:
+              '/$notificationId?ignoreDeleted=${ignoreDeleted ?? this.ignoreDeleted}',
+          mapper: (json) => this._mapNotification(
+            json,
+            languageCode: languageCode ?? this.languageCode,
+          ),
+        );
   }
 
   /// Delete the notification with the [notificationId].
@@ -99,9 +104,9 @@ class UMMobileNotifications {
         break;
     }
 
-    return this
-        ._http
-        .customPost<void>(path: '/$notificationId/analytics?event=$eventStr');
+    return this._http.customPost<void>(
+          path: '/$notificationId/analytics?event=$eventStr',
+        );
   }
 
   /// Update the [deleted] & [seen] properties of the notification with the [notificationId].
