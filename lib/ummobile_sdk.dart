@@ -60,12 +60,14 @@ class UMMobileSDK {
   UMMobileSDK({
     required String token,
     String version: latestVersion,
-  })  : this.user = UMMobileUser(auth: token, version: latestVersion),
-        this.academic = UMMobileAcademic(auth: token, version: latestVersion),
-        this.financial = UMMobileFinancial(auth: token, version: latestVersion),
+  })  : this.user = UMMobileUser(token: token, version: latestVersion),
+        this.academic = UMMobileAcademic(token: token, version: latestVersion),
+        this.financial =
+            UMMobileFinancial(token: token, version: latestVersion),
         this.notifications =
-            UMMobileNotifications(auth: token, version: latestVersion),
+            UMMobileNotifications(token: token, version: latestVersion),
         this.questionnaire =
-            UMMobileQuestionnaire(auth: token, version: latestVersion),
-        this.catalogue = UMMobileCatalogue(auth: token, version: latestVersion);
+            UMMobileQuestionnaire(token: token, version: latestVersion),
+        this.catalogue =
+            UMMobileCatalogue(token: token, version: latestVersion);
 }

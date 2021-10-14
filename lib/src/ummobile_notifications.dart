@@ -20,20 +20,20 @@ class UMMobileNotifications {
 
   /// Main UMMobile user notifications constructor.
   ///
-  /// Require the [auth] token to authenticate the requests, and the API [version] where to make the calls, which is the latests by default (v1).
+  /// Require the [token] token to authenticate the requests, and the API [version] where to make the calls, which is the latests by default (v1).
   ///
   /// Also can receive the default [languageCode] to use for the notifications (default "es"). If the [languageCode] specified cannot be located in the translations options then Spanish ("es") will be used.
   ///
   /// Deleted notifications are not actually deleted but marked as deleted to be ignored by default, but if [ignoreDeleted] is set to `true` the default functionality will be overriden and deleted notifications will be included. This value will be the default value for the functions in this class that can receive if should ignore deleted notifications like [this.getAll()] or [this.getOne()].
   UMMobileNotifications({
-    required String auth,
+    required String token,
     String version: latestVersion,
     this.languageCode: 'es',
     this.ignoreDeleted: true,
   }) : this._http = UMMobileCustomHttp(
           baseUrl: '$host/$version/$path',
           auth: Auth(
-            token: () => auth,
+            token: () => token,
             tokenType: 'Bearer',
             headerName: 'Authorization',
           ),

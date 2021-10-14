@@ -17,14 +17,14 @@ class UMMobileAcademic {
   /// **WARNING:**
   /// Some information may vary in certain periods such as vacations because if the student works at the university they will put a different plan while he works to give him the basic rights such as residence or student insurance. To see the current plan see [this.getPlan()] function.
   ///
-  /// Require the [auth] token to authenticate the requests, and the API [version] where to make the calls, which is the latests by default (v1).
+  /// Require the [token] token to authenticate the requests, and the API [version] where to make the calls, which is the latests by default (v1).
   UMMobileAcademic({
-    required String auth,
+    required String token,
     String version: latestVersion,
   }) : this._http = UMMobileCustomHttp(
           baseUrl: '$host/$version/$path',
           auth: Auth(
-            token: () => auth,
+            token: () => token,
             tokenType: 'Bearer',
             headerName: 'Authorization',
           ),

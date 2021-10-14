@@ -15,14 +15,14 @@ class UMMobileUser {
 
   /// Main UMMobile user client constructor.
   ///
-  /// Require the [auth] token to authenticate the requests, and the API [version] where to make the calls, which is the latests by default (v1).
+  /// Require the [token] token to authenticate the requests, and the API [version] where to make the calls, which is the latests by default (v1).
   UMMobileUser({
-    required String auth,
+    required String token,
     String version: latestVersion,
   }) : this._http = UMMobileCustomHttp(
           baseUrl: '$host/$version/$path',
           auth: Auth(
-            token: () => auth,
+            token: () => token,
             tokenType: 'Bearer',
             headerName: 'Authorization',
           ),
