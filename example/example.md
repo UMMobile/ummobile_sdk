@@ -9,6 +9,7 @@
     - [Catalogue](#catalogue)
       - [`getRules()`](#getrules)
       - [`getCountries()`](#getcountries)
+      - [`getCalendar()`](#getcalendar)
     - [Academic](#academic)
       - [`getArchives()`](#getarchives)
       - [`getAllSemesters()`](#getallsemesters)
@@ -95,6 +96,15 @@ List<Rule> rules = await sdk.catalogue.getRules();
 Returns a list of countries.
 ```dart
 List<Country> countries = await sdk.catalogue.getCountries();
+```
+
+#### `getCalendar()`
+Returns the calendar for the user or the students calendar by default.
+```dart
+Calendar calendar = await sdk.catalogue.getCalendar();
+
+print(calendar.events); // [Instance of Event, Instance of Event, Instance of Event, ...]
+print(calendar.summary); // title: "Agenda institucional"
 ```
 
 ### Academic
