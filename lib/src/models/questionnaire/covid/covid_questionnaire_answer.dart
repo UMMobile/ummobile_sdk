@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 /// The COVID questionnaire answer model.
 class CovidQuestionnaireAnswer {
   /// The recent countries.
