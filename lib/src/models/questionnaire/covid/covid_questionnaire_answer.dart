@@ -21,7 +21,7 @@ class CovidQuestionnaireAnswer {
   });
 
   /// Returns this information in JSON format.
-  dynamic toJson() {
+  Map<String, dynamic> toJson() {
     return {
       "countries": this
           .countries
