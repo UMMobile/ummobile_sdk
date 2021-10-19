@@ -2,6 +2,7 @@ import 'dart:io' show Platform;
 
 import 'package:dotenv/dotenv.dart' show load, env, clean;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:ummobile_sdk/src/models/financial/payment.dart';
 import 'package:ummobile_sdk/ummobile_sdk.dart';
 
 void main() {
@@ -137,6 +138,45 @@ void main() {
       expect(movements.lastYear!.first.date, isNull);
       expect(movements.lastYear!.first.isDebit, isTrue);
       expect(movements.lastYear!.first.isCredit, isFalse);
+    });
+
+    test('Generate payment URL: without invoice', () async {
+      String url = await student.financial.generatePaymentUrl(Payment(
+        reference: '1130745-SFORMA01-123098123098123',
+        amount: '10',
+        expirationDate: '',
+        clientMail: '1130745@alumno.um.edu.mx',
+        additionalData: [
+          PaymentAdditionalData(
+            id: 1,
+            label: 'UMMobile',
+            value: 'true',
+          ),
+        ],
+      ));
+
+      expect(url.startsWith('https'), isTrue);
+    });
+
+    test('Generate payment URL: with invoice', () async {
+      String url = await student.financial.generatePaymentUrl(
+        Payment(
+          reference: '1130745-SFORMA01-123098123098123',
+          amount: '10',
+          expirationDate: '',
+          clientMail: '1130745@alumno.um.edu.mx',
+          additionalData: [
+            PaymentAdditionalData(
+              id: 1,
+              label: 'UMMobile',
+              value: 'true',
+            ),
+          ],
+        ),
+        requestInvoice: true,
+      );
+
+      expect(url.startsWith('https'), isTrue);
     });
   });
 

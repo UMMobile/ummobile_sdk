@@ -1,4 +1,5 @@
 import 'package:ummobile_sdk/src/models/financial/movement.dart';
+import 'package:ummobile_sdk/src/models/financial/payment.dart';
 import 'package:ummobile_sdk/src/statics.dart';
 import 'package:ummobile_custom_http/ummobile_custom_http.dart';
 import 'package:ummobile_sdk/src/utils/utils.dart';
@@ -63,6 +64,20 @@ class UMMobileFinancial {
     return this._http.customGet(
           path: '/balances/$balance/movements?includeLastYear=$includeLastYear',
           mapper: (json) => _mapMovements(json, balanceId: balance),
+        );
+  }
+
+  /// Generate a new payment URL according to the [payment] information.
+  ///
+  /// Also can [requestInvoice] of the payment.
+  Future<String> generatePaymentUrl(
+    Payment payment, {
+    bool requestInvoice: false,
+  }) {
+    return this._http.customPost(
+          path: '/payment?requestInvoice=$requestInvoice',
+          body: payment.toJson(),
+          mapper: (json) => json['url'],
         );
   }
 
