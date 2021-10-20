@@ -33,7 +33,9 @@ class UMMobileUser {
   /// Some fields can be null depending on the role of the user. If the user is student then will have a `student` field and the `employee` field will be `null`. If the user is employee the `student` field will be null but then the `employee` field will have information.
   ///
   /// Can receive if should [includePicture] of the user. This can increase the response size so by default is `false`.
-  Future<User> getInformation({bool includePicture: false}) {
+  Future<User> getInformation({
+    bool includePicture: false,
+  }) {
     return this._http.customGet<User>(
       queries: {
         'includePicture': includePicture,

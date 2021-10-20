@@ -35,26 +35,27 @@ class UMMobileFinancial {
     IncludeMovements includeMovements: IncludeMovements.None,
   }) {
     return this._http.customGet(
-        path: '/balances',
-        queries: {
-          'includeMovements': includeMovements.index,
-        },
-        mapper: (json) => List.from(json)
-            .map((e) => Balance(
-                  id: e['id'],
-                  name: e['name'],
-                  current: e['current'] is int
-                      ? e['current'].toDouble()
-                      : e['current'],
-                  currentDebt: e['currentDebt'] is int
-                      ? e['currentDebt'].toDouble()
-                      : e['currentDebt'],
-                  type: e['type'],
-                  movements: includeMovements != IncludeMovements.None
-                      ? this._mapMovements(e['movements'], balanceId: e['id'])
-                      : null,
-                ))
-            .toList());
+          path: '/balances',
+          queries: {
+            'includeMovements': includeMovements.index,
+          },
+          mapper: (json) => List.from(json)
+              .map((e) => Balance(
+                    id: e['id'],
+                    name: e['name'],
+                    current: e['current'] is int
+                        ? e['current'].toDouble()
+                        : e['current'],
+                    currentDebt: e['currentDebt'] is int
+                        ? e['currentDebt'].toDouble()
+                        : e['currentDebt'],
+                    type: e['type'],
+                    movements: includeMovements != IncludeMovements.None
+                        ? this._mapMovements(e['movements'], balanceId: e['id'])
+                        : null,
+                  ))
+              .toList(),
+        );
   }
 
   /// Retrieve the [balance] movements.
