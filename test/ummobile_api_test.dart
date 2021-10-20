@@ -541,5 +541,18 @@ void main() {
       expect(unknownA, Residence.Unknown);
       expect(unknownB, Residence.Unknown);
     });
+
+    test('TypesExtension', () {
+      String strExternal = Residence.External.keyLabel;
+      String strStudent = Roles.Student.keyLabel;
+      String strHaveCovid = Reasons.HaveCovid.keyLabel;
+      String strDaycareMisAmiguitos =
+          ContractTypes.DaycareMisAmiguitos.keyLabel;
+
+      expect(strExternal, 'external');
+      expect(strStudent, 'student');
+      expect(strHaveCovid, 'haveCovid');
+      expect(strDaycareMisAmiguitos, 'daycareMisAmiguitos');
+    });
   });
 }

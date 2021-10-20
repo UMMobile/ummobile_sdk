@@ -7,3 +7,13 @@ export 'languages.dart';
 export 'answers.dart';
 export 'reasons.dart';
 export 'calendar_types.dart';
+
+extension TypesExtension on Enum {
+  String get keyLabel {
+    String key = this.toString().split('.').last;
+    String firstLetter = key.split('').first;
+    String lowerCamelCase =
+        key.replaceFirst(firstLetter, firstLetter.toLowerCase());
+    return lowerCamelCase;
+  }
+}
