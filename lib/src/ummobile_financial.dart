@@ -35,7 +35,10 @@ class UMMobileFinancial {
     IncludeMovements includeMovements: IncludeMovements.None,
   }) {
     return this._http.customGet(
-        path: '/balances?includeMovements=${includeMovements.index}',
+        path: '/balances',
+        queries: {
+          'includeMovements': includeMovements.index,
+        },
         mapper: (json) => List.from(json)
             .map((e) => Balance(
                   id: e['id'],
@@ -62,7 +65,10 @@ class UMMobileFinancial {
     bool includeLastYear: false,
   }) {
     return this._http.customGet(
-          path: '/balances/$balance/movements?includeLastYear=$includeLastYear',
+          path: '/balances/$balance/movements',
+          queries: {
+            'includeLastYear': includeLastYear,
+          },
           mapper: (json) => _mapMovements(json, balanceId: balance),
         );
   }
@@ -75,7 +81,10 @@ class UMMobileFinancial {
     bool requestInvoice: false,
   }) {
     return this._http.customPost(
-          path: '/payment?requestInvoice=$requestInvoice',
+          path: '/payment',
+          queries: {
+            'requestInvoice': requestInvoice,
+          },
           body: payment.toJson(),
           mapper: (json) => json['url'],
         );

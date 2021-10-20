@@ -49,14 +49,16 @@ class UMMobileNotifications {
     bool? ignoreDeleted,
   }) {
     return this._http.customGet(
-          path: '?ignoreDeleted=${ignoreDeleted ?? this.ignoreDeleted}',
-          mapper: (json) => List.from(json['notifications'])
-              .map<Notification>((e) => this._mapNotification(
-                    e,
-                    languageCode: languageCode ?? this.languageCode,
-                  ))
-              .toList(),
-        );
+      queries: {
+        'ignoreDeleted': ignoreDeleted ?? this.ignoreDeleted,
+      },
+      mapper: (json) => List.from(json['notifications'])
+          .map<Notification>((e) => this._mapNotification(
+                e,
+                languageCode: languageCode ?? this.languageCode,
+              ))
+          .toList(),
+    );
   }
 
   /// Retrieve a single notification by his [notificationId].
@@ -70,8 +72,10 @@ class UMMobileNotifications {
     bool? ignoreDeleted,
   }) {
     return this._http.customGet(
-          path:
-              '/$notificationId?ignoreDeleted=${ignoreDeleted ?? this.ignoreDeleted}',
+          path: '/$notificationId',
+          queries: {
+            'ignoreDeleted': ignoreDeleted ?? this.ignoreDeleted,
+          },
           mapper: (json) => this._mapNotification(
             json,
             languageCode: languageCode ?? this.languageCode,
@@ -94,19 +98,12 @@ class UMMobileNotifications {
     required String notificationId,
     required NotificationEvents event,
   }) {
-    String eventStr;
-    switch (event) {
-      case NotificationEvents.Received:
-        eventStr = 'received';
-        break;
-      case NotificationEvents.Clicked:
-        eventStr = 'clicked';
-        break;
-    }
-
     return this._http.customPost<void>(
-          path: '/$notificationId/analytics?event=$eventStr',
-        );
+      path: '/$notificationId/analytics',
+      queries: {
+        'event': event.keyLabel,
+      },
+    );
   }
 
   /// Update the [deleted] & [seen] properties of the notification with the [notificationId].
