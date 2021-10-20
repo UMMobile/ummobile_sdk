@@ -2,6 +2,7 @@
   - [Auth](#auth)
 - [Usage](#usage)
   - [Individual vs Main class](#individual-vs-main-class)
+  - [Enum: `keyLabel`](#enum-keylabel)
   - [Sections](#sections)
     - [User](#user)
       - [`getInformation()`](#getinformation)
@@ -66,6 +67,15 @@ await user.getInformation();
 // Main class
 UMMobileSDK sdk = UMMobileSDK(token: 'YOUR_TOKEN');
 await sdk.user.getInformation();
+```
+
+## Enum: `keyLabel`
+Each `Enum` contains a getter `keyLabel` that returns the enum label that can use for translations. The `keyLabel` is the same that the enum name but with the first letter in lower case.
+```dart
+print(Residence.External.keyLabel); // external
+print(Roles.Student.keyLabel); // student
+print(Reasons.HaveCovid.keyLabel); // haveCovid
+print(ContractTypes.DaycareMisAmiguitos.keyLabel); // daycareMisAmiguitos
 ```
 
 ## Sections
