@@ -143,8 +143,7 @@ void main() {
     test('Generate payment URL: without invoice', () async {
       String url = await student.financial.generatePaymentUrl(Payment(
         reference: '1130745-SFORMA01-123098123098123',
-        amount: '10',
-        expirationDate: '',
+        amount: 10,
         clientMail: '1130745@alumno.um.edu.mx',
         additionalData: [
           PaymentAdditionalData(
@@ -162,8 +161,7 @@ void main() {
       String url = await student.financial.generatePaymentUrl(
         Payment(
           reference: '1130745-SFORMA01-123098123098123',
-          amount: '10',
-          expirationDate: '',
+          amount: 10,
           clientMail: '1130745@alumno.um.edu.mx',
           additionalData: [
             PaymentAdditionalData(

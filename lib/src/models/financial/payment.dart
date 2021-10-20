@@ -6,12 +6,10 @@ class Payment {
   String reference;
 
   /// The payment amount.
-  String amount;
+  double amount;
 
   /// The expiration date for the generated URL.
-  ///
-  /// TODO: Set tomorrow by default and change type to DateTime. A day after today (today + 1day)
-  String expirationDate;
+  DateTime expirationDate;
 
   /// The email of the client.
   String clientMail;
@@ -22,20 +20,23 @@ class Payment {
   List<PaymentAdditionalData> additionalData;
 
   /// The Payment constructor.
+  ///
+  /// The default value for the [expirationDate] is one day after current day: `Date.now().add(Duration(days: 1))`.
   Payment({
     required this.reference,
     required this.amount,
-    required this.expirationDate,
     required this.clientMail,
     this.additionalData: const [],
-  });
+    DateTime? expirationDate,
+  }) : this.expirationDate =
+            expirationDate ?? DateTime.now().add(Duration(days: 1));
 
   /// Returns this information in JSON format.
   Map<String, dynamic> toJson() => {
-        'reference': reference,
-        'amount': amount,
-        'expirationDate': expirationDate,
-        'clientMail': clientMail,
+        'reference': this.reference,
+        'amount': this.amount,
+        'expirationDate': this.expirationDate.toIso8601String(),
+        'clientMail': this.clientMail,
         'additionalData': this.additionalData.map((i) => i.toJson()).toList(),
       };
 }
@@ -60,8 +61,8 @@ class PaymentAdditionalData {
 
   /// Returns this information in JSON format.
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'label': label,
-        'value': value,
+        'id': this.id,
+        'label': this.label,
+        'value': this.value,
       };
 }
