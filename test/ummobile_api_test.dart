@@ -141,7 +141,7 @@ void main() {
     });
 
     test('Generate payment URL: without invoice', () async {
-      String url = await student.financial.generatePaymentUrl(Payment(
+      Payment payment = Payment(
         reference: '1130745-SFORMA01-123098123098123',
         amount: 10,
         clientMail: '1130745@alumno.um.edu.mx',
@@ -152,25 +152,29 @@ void main() {
             value: 'true',
           ),
         ],
-      ));
+      );
+
+      String url = await student.financial.generatePaymentUrl(payment);
 
       expect(url.startsWith('https'), isTrue);
     });
 
     test('Generate payment URL: with invoice', () async {
+      Payment payment = Payment(
+        reference: '1130745-SFORMA01-123098123098123',
+        amount: 10,
+        clientMail: '1130745@alumno.um.edu.mx',
+        additionalData: [
+          PaymentAdditionalData(
+            id: 1,
+            label: 'UMMobile',
+            value: 'true',
+          ),
+        ],
+      );
+
       String url = await student.financial.generatePaymentUrl(
-        Payment(
-          reference: '1130745-SFORMA01-123098123098123',
-          amount: 10,
-          clientMail: '1130745@alumno.um.edu.mx',
-          additionalData: [
-            PaymentAdditionalData(
-              id: 1,
-              label: 'UMMobile',
-              value: 'true',
-            ),
-          ],
-        ),
+        payment,
         requestInvoice: true,
       );
 
