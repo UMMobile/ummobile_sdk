@@ -19,6 +19,7 @@
     - [Financial](#financial)
       - [`getBalances()`](#getbalances)
       - [`getMovements(String balance)`](#getmovementsstring-balance)
+      - [`generatePaymentUrl(Payment payment)`](#generatepaymenturlpayment-payment)
     - [Notifications](#notifications)
       - [`getAll()`](#getall)
       - [`getOne(String notificationId)`](#getonestring-notificationid)
@@ -182,6 +183,31 @@ print(movements.lastYear); // null
 Movements movements = await sdk.financial.getMovements('BALANCE_ID', includeLastYear: true);
 print(movements.current); // [Instance of Movement, Instance of Movement, ...]
 print(movements.lastYear); // [Instance of Movement, Instance of Movement, ...]
+```
+
+#### `generatePaymentUrl(Payment payment)`
+Returns the payment URL.
+```dart
+Payment payment = Payment(
+  reference: '1130745-SFORMA01-123098123098123',
+  amount: 10,
+  clientMail: '1130745@alumno.um.edu.mx',
+  additionalData: [
+    PaymentAdditionalData(
+      id: 1,
+      label: 'UMMobile',
+      value: 'true',
+    ),
+  ],
+);
+
+String urlA = await student.financial.generatePaymentUrl(payment);
+
+// Generate URL and request invoice for the payment.
+String urlB = await student.financial.generatePaymentUrl(
+  payment,
+  requestInvoice: true,
+);
 ```
 
 ### Notifications
