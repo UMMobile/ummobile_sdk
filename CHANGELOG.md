@@ -26,3 +26,9 @@
 > Release date: 14/Oct/2021
 * Adds calendar
 * Refactor code
+
+## 0.0.1-beta6
+> Release date: 14/Oct/2021
+* Adds payment
+* Adds `toString()` for enums
+* Adds explicit return type for `toJson()`

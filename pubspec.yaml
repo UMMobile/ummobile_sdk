@@ -1,6 +1,6 @@
 name: ummobile_sdk
 description: The SDK package used in the UMMobile App to connect with the server.
-version: 0.0.1-beta5
+version: 0.0.1-beta6
 homepage: https://github.com/UMMobile/ummobile_sdk
 
 environment:
