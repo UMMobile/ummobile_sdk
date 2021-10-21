@@ -12,7 +12,7 @@
       - [`getCountries()`](#getcountries)
       - [`getCalendar()`](#getcalendar)
     - [Academic](#academic)
-      - [`getArchives()`](#getarchives)
+      - [`getDocuments()`](#getdocuments)
       - [`getAllSemesters()`](#getallsemesters)
       - [`getCurrentSemester()`](#getcurrentsemester)
       - [`getPlan()`](#getplan)
@@ -124,10 +124,10 @@ The academic information can be found in the `academic` attribute on the `UMMobi
 **WARNING:**
 Some information may vary in certain periods such as vacations because if the student works at the university they will put a different plan while he works to give him the basic rights such as residence or student insurance. _To see the current plan see the `getPlan()` function_.
 
-#### `getArchives()`
-Returns the list of the user archives.
+#### `getDocuments()`
+Returns the list of the user documents.
 ```dart
-List<Archive> archives = await sdk.academic.getArchives();
+List<Document> documents = await sdk.academic.getDocuments();
 ```
 
 #### `getAllSemesters()`

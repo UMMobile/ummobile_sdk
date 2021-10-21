@@ -51,10 +51,10 @@ void main() {
   });
 
   group('[Academic]', () {
-    test('Get archives', () async {
-      List<Archive> archives = await student.academic.getArchives();
+    test('Get documents', () async {
+      List<Document> documents = await student.academic.getDocuments();
 
-      expect(archives, isNotEmpty);
+      expect(documents, isNotEmpty);
     });
 
     test('Get all semesters', () async {

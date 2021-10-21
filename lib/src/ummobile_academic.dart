@@ -1,4 +1,4 @@
-import 'package:ummobile_sdk/src/models/academic/archive.dart';
+import 'package:ummobile_sdk/src/models/academic/document.dart';
 import 'package:ummobile_sdk/src/models/academic/semester.dart';
 import 'package:ummobile_sdk/src/statics.dart';
 import 'package:ummobile_custom_http/ummobile_custom_http.dart';
@@ -30,16 +30,16 @@ class UMMobileAcademic {
           ),
         );
 
-  /// Retrieve the user archives.
-  Future<List<Archive>> getArchives() {
+  /// Retrieve the user documents.
+  Future<List<Document>> getDocuments() {
     return this._http.customGet(
-          path: '/archives',
+          path: '/documents',
           mapper: (json) => List.from(json)
-              .map((e) => Archive(
+              .map((e) => Document(
                     id: e['id'],
                     name: e['name'],
                     images: List.from(e['images'])
-                        .map((e) => ArchiveImg(
+                        .map((e) => DocumentImg(
                               page: e['page'],
                               image: e['image'],
                             ))
