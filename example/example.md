@@ -11,6 +11,11 @@
       - [`getRules()`](#getrules)
       - [`getCountries()`](#getcountries)
       - [`getCalendar()`](#getcalendar)
+    - [Communication](#communication)
+      - [`getNews()`](#getnews)
+      - [`getEvents()`](#getevents)
+      - [`getBlog()`](#getblog)
+      - [`getStories()`](#getstories)
     - [Academic](#academic)
       - [`getDocuments()`](#getdocuments)
       - [`getAllSemesters()`](#getallsemesters)
@@ -116,6 +121,33 @@ Calendar calendar = await sdk.catalogue.getCalendar();
 
 print(calendar.events); // [Instance of Event, Instance of Event, Instance of Event, ...]
 print(calendar.summary); // title: "Agenda institucional"
+```
+
+### Communication
+The institutional communicatoin information can be found in the `communication` attribute on the `UMMobileSDK` class or using the `UMMobileCommunication` class.
+
+#### `getNews()`
+Returns a list of the latest news (Posts) from Conéctate.
+```dart
+List<Post> posts = await sdk.communication.getNews(quantity: 3);
+```
+
+#### `getEvents()`
+Returns a list of the latest events (Posts) from Conéctate.
+```dart
+List<Post> posts = await sdk.communication.getEvents(quantity: 3);
+```
+
+#### `getBlog()`
+Returns a list of the latest posts from the blog (Posts) from Conéctate.
+```dart
+List<Post> posts = await sdk.communication.getBlog(quantity: 3);
+```
+
+#### `getStories()`
+Returns a list of the latest stories from Conéctate.
+```dart
+List<Group> stories = await sdk.communication.getStories();
 ```
 
 ### Academic

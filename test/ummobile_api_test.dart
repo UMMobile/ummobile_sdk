@@ -413,7 +413,7 @@ void main() {
     });
 
     test('Get blog', () async {
-      List<Post> posts = await student.communication.getBlogPosts(quantity: 3);
+      List<Post> posts = await student.communication.getBlog(quantity: 3);
 
       expect(posts.length, lessThanOrEqualTo(3));
     });

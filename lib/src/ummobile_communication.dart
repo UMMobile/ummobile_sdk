@@ -64,10 +64,10 @@ class UMMobileCommunication {
         );
   }
 
-  /// Retrieve a list of the university blog posts.
+  /// Retrieve a list of posts from the university blog.
   ///
   /// An specific [quantity] of posts can be defined.
-  Future<List<Post>> getBlogPosts({int? quantity}) {
+  Future<List<Post>> getBlog({int? quantity}) {
     return this._http.customGet<List<Post>>(
           path: '/blog',
           queries: {
