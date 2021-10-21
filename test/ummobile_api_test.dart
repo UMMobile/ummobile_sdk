@@ -2,7 +2,6 @@ import 'dart:io' show Platform;
 
 import 'package:dotenv/dotenv.dart' show load, env, clean;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ummobile_sdk/src/models/financial/payment.dart';
 import 'package:ummobile_sdk/ummobile_sdk.dart';
 
 void main() {
@@ -397,6 +396,32 @@ void main() {
 
       expect(calendarStudent.etag, isNot(calendarEmployee.etag));
       expect(calendarStudent.summary, isNot(calendarEmployee.summary));
+    });
+  });
+
+  group('[Communication]', () {
+    test('Get news', () async {
+      List<Post> posts = await student.communication.getNews(quantity: 3);
+
+      expect(posts.length, lessThanOrEqualTo(3));
+    });
+
+    test('Get events', () async {
+      List<Post> posts = await student.communication.getEvents(quantity: 3);
+
+      expect(posts.length, lessThanOrEqualTo(3));
+    });
+
+    test('Get blog', () async {
+      List<Post> posts = await student.communication.getBlogPosts(quantity: 3);
+
+      expect(posts.length, lessThanOrEqualTo(3));
+    });
+
+    test('Get stories', () async {
+      List<Group> stories = await student.communication.getStories();
+
+      expect(stories, isList);
     });
   });
 

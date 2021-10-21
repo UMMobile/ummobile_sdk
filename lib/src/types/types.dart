@@ -7,6 +7,7 @@ export 'languages.dart';
 export 'answers.dart';
 export 'reasons.dart';
 export 'calendar_types.dart';
+export 'media_types.dart';
 
 extension TypesExtension on Enum {
   String get keyLabel {
