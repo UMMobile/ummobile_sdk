@@ -124,7 +124,7 @@ print(calendar.summary); // title: "Agenda institucional"
 ```
 
 ### Communication
-The institutional communicatoin information can be found in the `communication` attribute on the `UMMobileSDK` class or using the `UMMobileCommunication` class.
+The institutional communication information can be found in the `communication` attribute on the `UMMobileSDK` class or using the `UMMobileCommunication` class.
 
 #### `getNews()`
 Returns a list of the latest news (Posts) from Conéctate.
@@ -147,7 +147,9 @@ List<Post> posts = await sdk.communication.getBlog(quantity: 3);
 #### `getStories()`
 Returns a list of the latest stories from Conéctate.
 ```dart
-List<Group> stories = await sdk.communication.getStories();
+List<Group> groups = await sdk.communication.getStories();
+
+print(groups.stories); // [Instance of Story, Instance of Story, ...]
 ```
 
 ### Academic
