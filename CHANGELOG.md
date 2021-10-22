@@ -38,3 +38,7 @@
 * Adds Conéctate
 * Updates fo work with `queries` arguments
 * Rename Archive to Documents
+
+## 0.0.1-beta8
+> Release date: 21/Oct/2021
+* Fixes not exporting Communication individual class
