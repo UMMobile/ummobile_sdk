@@ -19,6 +19,7 @@ export 'src/ummobile_notifications.dart';
 export 'src/ummobile_questionnaire.dart';
 export 'src/ummobile_covid.dart';
 export 'src/ummobile_catalogue.dart';
+export 'src/ummobile_communication.dart';
 // Export components
 export 'src/models/models.dart';
 export 'src/types/types.dart';
