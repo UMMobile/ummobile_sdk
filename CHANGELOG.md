@@ -32,3 +32,9 @@
 * Adds payment
 * Adds `keyLabel` getter for enums
 * Adds explicit return type for `toJson()`
+
+## 0.0.1-beta7
+> Release date: 21/Oct/2021
+* Adds Conéctate
+* Updates fo work with `queries` arguments
+* Rename Archive to Documents
