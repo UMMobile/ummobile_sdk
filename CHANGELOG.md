@@ -42,3 +42,37 @@
 ## 0.0.1-beta8
 > Release date: 21/Oct/2021
 * Fixes not exporting Communication individual class
+
+## 0.0.1
+> Release date: 25/Oct/2021
+* API models: all models were mapped with better implementation for flutter.
+* Types: all useful types were mapped with better implementation for flutter (_see `Enum` section in examples_).
+* UMMobile API fully implemented:
+  * Catalogue:
+    * Rules
+    * Countries
+    * Calendar
+  * Communication (Conéctate):
+    * News
+    * Events
+    * Blog
+    * Stories
+  * Questionnaire (COVID):
+    * Save answer
+    * Read answers
+    * Read extra information
+    * Update extra information
+    * Validate answer & extra information
+    * Validate responsive letter
+  * Academic:
+    * Documents
+    * Semesters
+    * Global average
+  * Financial:
+    * Balances
+    * Movements
+  * User:
+    * Information
+    * Picture
+  * Auth:
+    * Token
