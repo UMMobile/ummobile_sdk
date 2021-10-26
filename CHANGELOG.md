@@ -76,3 +76,9 @@
     * Picture
   * Auth:
     * Token
+
+## 0.0.2
+> Release date: 26/Oct/2021
+* Fixes error saving questionnaires
+* Adds validation for `RecentCountry` constructor
+* Adds `RecentCountry.city` & `RecentCountry.country` constructor
