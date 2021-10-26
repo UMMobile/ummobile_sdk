@@ -343,8 +343,9 @@ void main() {
       CovidQuestionnaireAnswer answer = CovidQuestionnaireAnswer(
         countries: [
           RecentCountry(
-            country: 'México',
+            country: 'Mexico',
             city: 'Montemorelos',
+            date: DateTime.now(),
           ),
         ],
         recentContact: RecentContact(yes: false),

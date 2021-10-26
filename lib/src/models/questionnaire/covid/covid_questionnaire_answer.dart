@@ -28,7 +28,7 @@ class CovidQuestionnaireAnswer {
           .map((e) => {
                 if (e.country != null) "country": e.country,
                 if (e.city != null) "city": e.city,
-                if (e.date != null) "date": e.date,
+                if (e.date != null) "date": e.date!.toIso8601String(),
               })
           .toList(),
       "recentContact": {
@@ -82,10 +82,23 @@ class RecentCountry {
 
   /// The RecentCountry constructor.
   RecentCountry({
-    this.country,
-    this.city,
+    String? country,
+    String? city,
     this.date,
-  });
+  }) {
+    this.country = country;
+    this.city = city;
+
+    if (this.country == null && this.city == null) {
+      throw FormatException('both country and city attributes cannot be null');
+    }
+  }
+
+  /// Set only the field for country. All the others will be null.
+  RecentCountry.country(this.country);
+
+  /// Set only the field for city. All the others will be null.
+  RecentCountry.city(this.city);
 }
 
 /// The recent contact modal.
