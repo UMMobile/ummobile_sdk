@@ -82,3 +82,7 @@
 * Fixes error saving questionnaires
 * Adds validation for `RecentCountry` constructor
 * Adds `RecentCountry.city` & `RecentCountry.country` constructor
+
+## 0.0.3-beta1
+> Release date: 26/Oct/2021
+* Updates ummobile_custom_http package to 0.0.3-beta1
