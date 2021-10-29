@@ -86,3 +86,7 @@
 ## 0.0.3-beta1
 > Release date: 26/Oct/2021
 * Updates ummobile_custom_http package to 0.0.3-beta1
+
+## 0.0.3-beta2
+> Release date: 29/Oct/2021
+* Updates ummobile_custom_http package to 0.0.3-beta2
