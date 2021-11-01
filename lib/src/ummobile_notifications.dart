@@ -84,12 +84,12 @@ class UMMobileNotifications {
   }
 
   /// Delete the notification with the [notificationId].
-  delete(String notificationId) {
+  Future<Notification> delete(String notificationId) {
     return this._update(notificationId, deleted: true);
   }
 
   /// Mark as seen the notification with the [notificationId].
-  markAsSeen(String notificationId) {
+  Future<Notification> markAsSeen(String notificationId) {
     return this._update(notificationId, seen: true);
   }
 
