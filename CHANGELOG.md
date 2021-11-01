@@ -90,3 +90,8 @@
 ## 0.0.3-beta2
 > Release date: 29/Oct/2021
 * Updates ummobile_custom_http package to 0.0.3-beta2
+
+## 0.0.3
+> Release date: 02/Nov/2021
+* Updates ummobile_custom_http package to 0.0.3
+* Fixes dynamic return to typed one
