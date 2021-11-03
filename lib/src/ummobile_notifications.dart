@@ -83,6 +83,11 @@ class UMMobileNotifications {
         );
   }
 
+  /// Mark as received the notification with the [notificationId].
+  Future<Notification> markAsReceived(String notificationId) {
+    return this._update(notificationId, received: true);
+  }
+
   /// Delete the notification with the [notificationId].
   Future<Notification> delete(String notificationId) {
     return this._update(notificationId, deleted: true);
@@ -94,6 +99,7 @@ class UMMobileNotifications {
   }
 
   /// Send a new analytic [event] for the notification with the [notificationId].
+  @Deprecated('Use instead markAsSeen or markAsReceived')
   Future<void> sendAnalitycs({
     required String notificationId,
     required NotificationEvents event,
@@ -115,11 +121,13 @@ class UMMobileNotifications {
     String notificationId, {
     bool deleted: false,
     bool seen: false,
+    bool received: false,
     String? languageCode,
   }) {
     Map<String, String> body = {
       if (deleted) 'deleted': DateTime.now().toIso8601String(),
       if (seen) 'seen': DateTime.now().toIso8601String(),
+      if (received) 'received': DateTime.now().toIso8601String(),
     };
 
     if (body.isEmpty) {
@@ -154,6 +162,8 @@ class UMMobileNotifications {
           es: json['content']['content']['es'],
         ),
       ),
+      received:
+          json['received'] != null ? DateTime.parse(json['received']) : null,
       seen: json['seen'] != null ? DateTime.parse(json['seen']) : null,
       deleted: json['deleted'] != null ? DateTime.parse(json['deleted']) : null,
     );

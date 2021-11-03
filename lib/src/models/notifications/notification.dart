@@ -18,28 +18,30 @@ class Notification {
   /// The notification language to use by default.
   Languages language;
 
+  /// The time when the notification was received.
+  ///
+  /// If null then it hasn't been received.
+  DateTime? received;
+
   /// The time when the notification was seen.
   ///
   /// If null then it hasn't been seen.
-  ///
-  /// **Note:**
-  /// This date and time are from the server side.
   DateTime? seen;
 
   /// The time where the notification was created.
   ///
   /// If null then it hasn't been deleted.
-  ///
-  /// **Note:**
-  /// This date and time are from the server side.
   DateTime? deleted;
+
+  /// Returns `true` if the notification was received.
+  bool get isReceived => this.received != null;
 
   /// Returns `true` if the notification was seen.
   bool get isSeen => this.seen != null;
 
   /// Returns `true` if the notification is deleted.
   ///
-  /// Maybe never will be deleted. I don't remember how the API works and I think that never returns the deleted notifications.
+  /// Never will be deleted because never returns the deleted notifications.
   bool get isDeleted => this.deleted != null;
 
   /// The content of the notification for the specified [this.language].
@@ -66,6 +68,7 @@ class Notification {
     required this.createAt,
     required this.language,
     required NotificationContent content,
+    this.received,
     this.seen,
     this.deleted,
   }) : this._content = content;

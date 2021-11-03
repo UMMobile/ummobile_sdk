@@ -265,6 +265,20 @@ void main() {
       expect(notification.seen!.year, DateTime.now().year);
     });
 
+    test('Mark notification as received', () async {
+      List<Notification> notifications =
+          await student.notifications.getAll(languageCode: 'en');
+      expect(notifications, isNotEmpty);
+
+      Notification notification =
+          await student.notifications.markAsReceived(notifications.first.id);
+
+      expect(notification.isReceived, isTrue);
+      expect(notification.received!.day, DateTime.now().day);
+      expect(notification.received!.month, DateTime.now().month);
+      expect(notification.received!.year, DateTime.now().year);
+    });
+
     test('Delete notification', () async {
       List<Notification> notifications =
           await student.notifications.getAll(languageCode: 'en');
