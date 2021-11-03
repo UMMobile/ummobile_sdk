@@ -95,3 +95,7 @@
 > Release date: 02/Nov/2021
 * Updates ummobile_custom_http package to 0.0.3
 * Fixes dynamic return to typed one
+
+## 0.0.4
+> Release date: 03/Nov/2021
+* Adds `markAsReceived` function for user notifications

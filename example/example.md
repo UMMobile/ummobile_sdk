@@ -29,9 +29,10 @@
     - [Notifications](#notifications)
       - [`getAll()`](#getall)
       - [`getOne(String notificationId)`](#getonestring-notificationid)
+      - [`markAsReceived(String notificationId)`](#markasreceivedstring-notificationid)
       - [`markAsSeen(String notificationId)`](#markasseenstring-notificationid)
       - [`delete(String notificationId)`](#deletestring-notificationid)
-      - [`sendAnalytics()`](#sendanalytics)
+      - [~~`sendAnalytics()`~~](#sendanalytics)
     - [COVID questionnaire](#covid-questionnaire)
       - [`getAnswers()`](#getanswers)
       - [`getTodayAnswers()`](#gettodayanswers)
@@ -317,6 +318,20 @@ Notification notification =
       );
 ```
 
+#### `markAsReceived(String notificationId)`
+Marks a notification as received.
+```dart
+Notification notification =
+          await sdk.notifications.getOne('NOTIFICATION_ID');
+
+print(notification.isReceived); // false
+
+Notification receivedNotification =
+          await sdk.notifications.markAsReceived(notification.id);
+
+print(receivedNotification.isReceived); // true
+```
+
 #### `markAsSeen(String notificationId)`
 Marks a notification as seen.
 ```dart
@@ -345,7 +360,9 @@ Notification deletedNotification =
 print(deletedNotification.isDeleted); // true
 ```
 
-#### `sendAnalytics()`
+#### ~~`sendAnalytics()`~~
+> **Deprecated:** Use `markAsReceived` or `markAsSeen`
+
 Sends a new user event for a notification.
 
 Some events are "clicked" that is equivalent to read or see the notification, and "received" that means that the notification was received by the user cellphone.
