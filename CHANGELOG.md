@@ -99,3 +99,9 @@
 ## 0.0.4
 > Release date: 03/Nov/2021
 * Adds `markAsReceived` function for user notifications
+
+## 0.0.5
+> Release date: 04/Nov/2021
+* Fixes error mapping stories
+  * Map dates from string to DateTime
+  * Map media types from integer
