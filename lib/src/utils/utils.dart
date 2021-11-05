@@ -57,6 +57,13 @@ Reasons getReasonFromInt(int reason) => getFromEnum(
       defaultValue: Reasons.None,
     );
 
+/// Returns the media type of the given [media] as integer.
+MediaType getMediaTypeFromInt(int media) => getFromEnum(
+      value: media,
+      validValues: MediaType.values,
+      defaultValue: MediaType.Unknown,
+    );
+
 T getFromEnum<T>({
   required int value,
   required List<T> validValues,

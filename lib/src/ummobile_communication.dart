@@ -93,10 +93,10 @@ class UMMobileCommunication {
                     image: group['image'],
                     stories: List.from(group['stories'])
                         .map((story) => Story(
-                              startDate: story['startDate'],
-                              endDate: story['endDate'],
+                              startDate: DateTime.parse(story['startDate']),
+                              endDate: DateTime.parse(story['endDate']),
                               duration: story['duration'],
-                              type: story['type'],
+                              type: getMediaTypeFromInt(story['type']),
                               content: story['content'],
                             ))
                         .toList(),
