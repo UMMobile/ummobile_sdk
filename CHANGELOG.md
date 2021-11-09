@@ -105,3 +105,8 @@
 * Fixes error mapping stories
   * Map dates from string to DateTime
   * Map media types from integer
+
+## 0.0.6
+> Release date: 08/Nov/2021
+* Fixes error mapping dates
+  * Use `DateTime.parse()` instead of `DateTime()`

@@ -76,10 +76,10 @@ class UMMobileUser {
                 ? Scholarship(
                     workplace: json['student']['scholarship']['workplace'],
                     position: json['student']['scholarship']['position'],
-                    startDate:
-                        DateTime(json['student']['scholarship']['startDate']),
-                    endDate:
-                        DateTime(json['student']['scholarship']['endDate']),
+                    startDate: DateTime.parse(
+                        json['student']['scholarship']['startDate']),
+                    endDate: DateTime.parse(
+                        json['student']['scholarship']['endDate']),
                     hours: json['student']['scholarship']['hours'],
                     status: json['student']['scholarship']['status'],
                   )
