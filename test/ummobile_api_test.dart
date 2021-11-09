@@ -232,25 +232,6 @@ void main() {
       expect(notification.isDeleted, isTrue);
     });
 
-    test('Send analytics', () async {
-      List<Notification> notifications =
-          await student.notifications.getAll(languageCode: 'en');
-      expect(notifications, isNotEmpty);
-
-      await student.notifications.sendAnalitycs(
-        notificationId: notifications.first.id,
-        event: NotificationEvents.Received,
-      );
-
-      await student.notifications.sendAnalitycs(
-        notificationId: notifications.first.id,
-        event: NotificationEvents.Clicked,
-      );
-
-      // everything went well and no Exception was thrown.
-      expect(true, isTrue);
-    });
-
     test('Mark notification as seen', () async {
       List<Notification> notifications =
           await student.notifications.getAll(languageCode: 'en');

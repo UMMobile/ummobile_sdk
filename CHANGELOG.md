@@ -110,3 +110,10 @@
 > Release date: 08/Nov/2021
 * Fixes error mapping dates
   * Use `DateTime.parse()` instead of `DateTime()`
+
+## 0.0.7
+> Release date: 09/Nov/2021
+* Deletes deprecated functions
+  * `UMMobileNotifications.sendAnalytics()`
+* Improves usage of `UMMobileNotifications._update()` to improve `UMMobileNotifications.markAsReceived()` usage.
+  * To update only `received` field now use another public endpoint to avoid error with expired access token.

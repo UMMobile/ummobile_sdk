@@ -32,7 +32,6 @@
       - [`markAsReceived(String notificationId)`](#markasreceivedstring-notificationid)
       - [`markAsSeen(String notificationId)`](#markasseenstring-notificationid)
       - [`delete(String notificationId)`](#deletestring-notificationid)
-      - [~~`sendAnalytics()`~~](#sendanalytics)
     - [COVID questionnaire](#covid-questionnaire)
       - [`getAnswers()`](#getanswers)
       - [`getTodayAnswers()`](#gettodayanswers)
@@ -358,27 +357,6 @@ Notification deletedNotification =
           await sdk.notifications.delete(notification.id);
 
 print(deletedNotification.isDeleted); // true
-```
-
-#### ~~`sendAnalytics()`~~
-> **Deprecated:** Use `markAsReceived` or `markAsSeen`
-
-Sends a new user event for a notification.
-
-Some events are "clicked" that is equivalent to read or see the notification, and "received" that means that the notification was received by the user cellphone.
-```dart
-// Send a received event.
-await sdk.notifications.sendAnalitycs(
-  notificationId: 'NOTIFICATION_ID',
-  event: NotificationEvents.Received,
-);
-
-// Send a clicked event.
-await sdk.notifications.sendAnalitycs(
-  notificationId: 'NOTIFICATION_ID',
-  event: NotificationEvents.Clicked,
-);
-
 ```
 
 ### COVID questionnaire

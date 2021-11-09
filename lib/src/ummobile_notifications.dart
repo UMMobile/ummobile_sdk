@@ -98,21 +98,7 @@ class UMMobileNotifications {
     return this._update(notificationId, seen: true);
   }
 
-  /// Send a new analytic [event] for the notification with the [notificationId].
-  @Deprecated('Use instead markAsSeen or markAsReceived')
-  Future<void> sendAnalitycs({
-    required String notificationId,
-    required NotificationEvents event,
-  }) {
-    return this._http.customPost<void>(
-      path: '/$notificationId/analytics',
-      queries: {
-        'event': event.keyLabel,
-      },
-    );
-  }
-
-  /// Update the [deleted] & [seen] properties of the notification with the [notificationId].
+  /// Update the [deleted], [seen] and [received] properties of the notification with the [notificationId].
   ///
   /// Can receive the [languageCode] (default null -[this.languageCode = "es"] is used in that case-) to use for the notifications. If the langauge cannot be located then Spanish will be used.
   ///
@@ -135,8 +121,12 @@ class UMMobileNotifications {
           "At least one property should be included to update");
     }
 
+    // If the body only contains a "received" key then send the request to "/analytics" path.
+    // This other endpoint is public and do not require the user to have a valid access token.
+    bool isOnlyAnalytic = body.containsKey('received') && body.keys.length == 1;
+
     return this._http.customPatch(
-          path: '/$notificationId',
+          path: '/$notificationId' + (isOnlyAnalytic ? '/analytics' : ''),
           body: body,
           mapper: (json) => this._mapNotification(json,
               languageCode: languageCode ?? this.languageCode),
