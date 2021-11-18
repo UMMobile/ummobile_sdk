@@ -331,10 +331,7 @@ void main() {
       expect(updated, isTrue);
     });
 
-    test('Save a new answer', () async {
-      List<CovidQuestionnaireAnswerDatabase> before =
-          await student.questionnaire.covid.getTodayAnswers();
-
+    group('Save a new answer', () {
       CovidQuestionnaireAnswer answer = CovidQuestionnaireAnswer(
         countries: [
           RecentCountry(
@@ -352,17 +349,39 @@ void main() {
         },
       );
 
-      CovidValidation validation =
-          await student.questionnaire.covid.saveAnswer(answer);
+      test('Student', () async {
+        List<CovidQuestionnaireAnswerDatabase> before =
+            await student.questionnaire.covid.getTodayAnswers();
 
-      List<CovidQuestionnaireAnswerDatabase> after =
-          await student.questionnaire.covid.getTodayAnswers();
+        CovidValidation validation =
+            await student.questionnaire.covid.saveAnswer(answer);
 
-      expect(after.length, greaterThan(before.length));
-      expect(
-          validation.qrUrl.toString().contains(userStudent.toString()), isTrue);
-      expect(validation.qrUrl.toString().contains('3bbeff'), isTrue);
-      expect(validation.reason, Reasons.None);
+        List<CovidQuestionnaireAnswerDatabase> after =
+            await student.questionnaire.covid.getTodayAnswers();
+
+        expect(after.length, greaterThan(before.length));
+        expect(validation.qrUrl.toString().contains(userStudent.toString()),
+            isTrue);
+        expect(validation.qrUrl.toString().contains('3bbeff'), isTrue);
+        expect(validation.reason, Reasons.None);
+      });
+
+      test('Employee', () async {
+        List<CovidQuestionnaireAnswerDatabase> before =
+            await employee.questionnaire.covid.getTodayAnswers();
+
+        CovidValidation validation =
+            await employee.questionnaire.covid.saveAnswer(answer);
+
+        List<CovidQuestionnaireAnswerDatabase> after =
+            await employee.questionnaire.covid.getTodayAnswers();
+
+        expect(after.length, greaterThan(before.length));
+        expect(validation.qrUrl.toString().contains(userEmployee.toString()),
+            isTrue);
+        expect(validation.qrUrl.toString().contains('3bbe3f'), isTrue);
+        expect(validation.reason, Reasons.None);
+      });
     });
   });
 
