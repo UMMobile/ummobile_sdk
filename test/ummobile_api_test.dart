@@ -340,7 +340,10 @@ void main() {
             date: DateTime.now(),
           ),
         ],
-        recentContact: RecentContact(yes: false),
+        recentContact: RecentContact(
+          yes: false,
+          when: DateTime.now(),
+        ),
         majorSymptoms: {
           'tos': false,
         },

@@ -33,7 +33,8 @@ class CovidQuestionnaireAnswer {
           .toList(),
       "recentContact": {
         "yes": this.recentContact.yes,
-        if (this.recentContact.when != null) "when": this.recentContact.when,
+        if (this.recentContact.when != null)
+          "when": this.recentContact.when!.toIso8601String(),
       },
       "majorSymptoms": this.majorSymptoms,
       "minorSymptoms": this.minorSymptoms,
