@@ -31,6 +31,8 @@ class UMMobileAcademic {
         );
 
   /// Retrieve the user documents.
+  ///
+  /// _**NOTE:** This function do not include the base64 images page to avoid increment the response time & size. To get the base64 image page use `getImagePage(int documentId, int page)`_.
   Future<List<Document>> getDocuments() {
     return this._http.customGet(
           path: '/documents',
@@ -56,8 +58,8 @@ class UMMobileAcademic {
         );
   }
 
-  /// Retrieve a document page.
-  Future<DocumentPage> getPage(int documentId, int page) {
+  /// Retrieve a document page with base64 image.
+  Future<DocumentPage> getImagePage(int documentId, int page) {
     return this._http.customGet(
           path: '/documents/$documentId/pages/$page',
           mapper: (json) => DocumentPage(

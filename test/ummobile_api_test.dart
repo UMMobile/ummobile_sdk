@@ -58,7 +58,7 @@ void main() {
     });
 
     test('Get document page', () async {
-      DocumentPage page = await student.academic.getPage(1, 1);
+      DocumentPage page = await student.academic.getImagePage(1, 1);
 
       expect(page.base64Image, isNotEmpty);
     });

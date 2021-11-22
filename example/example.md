@@ -18,6 +18,7 @@
       - [`getStories()`](#getstories)
     - [Academic](#academic)
       - [`getDocuments()`](#getdocuments)
+      - [`getImagePage(int documentId, int page)`](#getimagepageint-documentid-int-page)
       - [`getAllSemesters()`](#getallsemesters)
       - [`getCurrentSemester()`](#getcurrentsemester)
       - [`getPlan()`](#getplan)
@@ -156,12 +157,23 @@ print(groups.stories); // [Instance of Story, Instance of Story, ...]
 The academic information can be found in the `academic` attribute on the `UMMobileSDK` class or using the `UMMobileAcademic` class.
 
 **WARNING:**
-Some information may vary in certain periods such as vacations because if the student works at the university they will put a different plan while he works to give him the basic rights such as residence or student insurance. _To see the current plan see the `getPlan()` function_.
+Some information may vary in certain periods such as vacations because if the student works at the university they will put a different plan while he works to give him the basic rights such as residence or student insurance. _To see the current plan see the [`getPlan()`](#getplan) function_.
 
 #### `getDocuments()`
 Returns the list of the user documents.
+
+**Note:** Not include the base46 page images to reduce the response time & size. To get the base64 use [`getImagePage(int documentId, int page)`](#getimagepageint-documentid-int-page).
 ```dart
 List<Document> documents = await sdk.academic.getDocuments();
+```
+
+#### `getImagePage(int documentId, int page)`
+Returns a document page with the base64 image.
+```dart
+DocumentPage page = await sdk.academic.getImagePage(1, 1);
+
+print(page.page); // 1
+print(page.base64Image); // the base64 page image 
 ```
 
 #### `getAllSemesters()`
@@ -189,7 +201,7 @@ String planId = await sdk.academic.getPlan();
 ```
 
 #### `getGlobalAverage()`
-Returns the global average for the current plan (_`getPlan()`_).
+Returns the global average for the current plan (_[`getPlan()`](#getplan)_).
 ```dart
 double average = await sdk.academic.getGlobalAverage();
 ```
@@ -257,7 +269,7 @@ String urlB = await student.financial.generatePaymentUrl(
 ### Notifications
 The notifications information can be found in the `notifications` attribute on the `UMMobileSDK` class or using the `UMMobileNotifications` class.
 
-Can receive default values for optional named arguments for some functions like `getAll()` or `getOne()`:
+Can receive default values for optional named arguments for some functions like [`getAll()`](#getall) or [`getOne(String notificationId)`](#getonestring-notificationid):
 ```dart
 UMMobileNotifications notificationsSection = UMMobileNotifications(
   // required
@@ -303,7 +315,7 @@ print(withDeletedNotifications.any((notification) => notification.isDeleted)); /
 ```
 
 #### `getOne(String notificationId)`
-Returns a single notification. The usage of this function is similar to `getAll()` but with one positional argument (`notificationId`).
+Returns a single notification. The usage of this function is similar to [`getAll()`](#getall) but with one positional argument (`notificationId`).
 ```dart
 Notification notification =
           await sdk.notifications.getOne('NOTIFICATION_ID');
@@ -368,7 +380,7 @@ The class for the questionnare information (`UMMobileQuestionnaire`) is empty wh
 #### `getAnswers()`
 Returns all the user answers to the questionnaire.
 
-Uses the `CovidQuestionnaireAnswerDatabase` to differentiate from the request body to save a new answer (see `saveAnswer()`) and to avoid setting some fields as optional when they are automatically configured in the database, so they will always come in the answer.
+Uses the `CovidQuestionnaireAnswerDatabase` to differentiate from the request body to save a new answer (see [`saveAnswer(CovidQuestionnaireAnswer answer)`](#saveanswercovidquestionnaireanswer-answer)) and to avoid setting some fields as optional when they are automatically configured in the database, so they will always come in the answer.
 ```dart
 // Get all answers
 List<CovidQuestionnaireAnswerDatabase> answers =
@@ -382,7 +394,7 @@ List<CovidQuestionnaireAnswerDatabase> todayAnswers =
 #### `getTodayAnswers()`
 Returns all the user answers to the questionnaire on the current day (from the server perspective).
 
-Uses `getAnswers(filter: Answers.Today)` under the hood.
+Uses `getAnswers(filter: Answers.Today)` under the hood (_see [`getAnswers()`](#getanswers)_).
 ```dart
 List<CovidQuestionnaireAnswerDatabase> todayAnswers =
           await sdk.questionnaire.covid.getTodayAnswers();
@@ -401,7 +413,7 @@ print(extras.isInQuarantine); // false or true
 ```
 
 #### `getValidation()`
-Returns the validation of the user information using the extra critial information (see `getExtras()`) to know if the user can or cannot enter to the campus.
+Returns the validation of the user information using the extra critial information (see [`getExtras()`](#getextras)) to know if the user can or cannot enter to the campus.
 
 **Note:**
 This function must be used before allowing the user to respond to the questionnaire to know if he can access the questionnaire or if his entrance to the campus should be rejected.

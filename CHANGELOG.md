@@ -117,3 +117,9 @@
   * `UMMobileNotifications.sendAnalytics()`
 * Improves usage of `UMMobileNotifications._update()` to improve `UMMobileNotifications.markAsReceived()` usage.
   * To update only `received` field now use another public endpoint to avoid error with expired access token.
+
+## 0.0.8
+> Release date: 22/Nov/2021
+* Fixes error converting DateTime to JSON
+* Adds support for documents pages
+* Updates examples
