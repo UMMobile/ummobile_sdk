@@ -38,6 +38,13 @@ class UMMobileAcademic {
               .map((e) => Document(
                     id: e['id'],
                     name: e['name'],
+                    pages: List.from(e['pages'])
+                        .map((e) => DocumentPage(
+                              page: e['page'],
+                              urlImage: e['urlImage'],
+                              base64Image: e['base64'],
+                            ))
+                        .toList(),
                     images: List.from(e['images'])
                         .map((e) => DocumentImg(
                               page: e['page'],
@@ -46,6 +53,18 @@ class UMMobileAcademic {
                         .toList(),
                   ))
               .toList(),
+        );
+  }
+
+  /// Retrieve a document page.
+  Future<DocumentPage> getPage(int documentId, int page) {
+    return this._http.customGet(
+          path: '/documents/$documentId/pages/$page',
+          mapper: (json) => DocumentPage(
+            page: json['page'],
+            urlImage: json['urlImage'],
+            base64Image: json['base64'],
+          ),
         );
   }
 

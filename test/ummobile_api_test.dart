@@ -54,6 +54,13 @@ void main() {
       List<Document> documents = await student.academic.getDocuments();
 
       expect(documents, isNotEmpty);
+      expect(documents.first.pages, isNotEmpty);
+    });
+
+    test('Get document page', () async {
+      DocumentPage page = await student.academic.getPage(1, 1);
+
+      expect(page.base64Image, isNotEmpty);
     });
 
     test('Get all semesters', () async {
