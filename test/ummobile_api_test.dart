@@ -190,13 +190,19 @@ void main() {
 
   group('[Notifications]', () {
     test('Get all: languages', () async {
-      List<Notification> notifications =
+      List<Notification> english =
           await student.notifications.getAll(languageCode: 'en');
 
-      expect(notifications, isNotEmpty);
-      expect(notifications.first.heading,
-          isNot(notifications.first.headingTr('es')));
-      expect(notifications.first.heading, notifications.first.headingTr('en'));
+      expect(english, isNotEmpty);
+      expect(english.first.heading, english.first.headingTr('en'));
+      expect(english.first.content, english.first.contentTr('en'));
+
+      List<Notification> spanish =
+          await student.notifications.getAll(languageCode: 'es');
+
+      expect(spanish, isNotEmpty);
+      expect(spanish.first.heading, spanish.first.headingTr('es'));
+      expect(spanish.first.content, spanish.first.contentTr('es'));
     });
 
     test('Get all: include deleted', () async {
@@ -220,7 +226,6 @@ void main() {
           .getOne(notifications.first.id, languageCode: 'en');
 
       expect(notifications.first.id, notification.id);
-      expect(notification.heading, isNot(notification.headingTr('es')));
       expect(notification.heading, notification.headingTr('en'));
       expect(notification.content, notification.contentTr('en'));
     });
@@ -240,8 +245,7 @@ void main() {
     });
 
     test('Mark notification as seen', () async {
-      List<Notification> notifications =
-          await student.notifications.getAll(languageCode: 'en');
+      List<Notification> notifications = await student.notifications.getAll();
       expect(notifications, isNotEmpty);
 
       Notification notification =
@@ -254,8 +258,7 @@ void main() {
     });
 
     test('Mark notification as received', () async {
-      List<Notification> notifications =
-          await student.notifications.getAll(languageCode: 'en');
+      List<Notification> notifications = await student.notifications.getAll();
       expect(notifications, isNotEmpty);
 
       Notification notification =
