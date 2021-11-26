@@ -30,10 +30,12 @@ void main() {
     Token studentToken = await auth.getToken(
       username: userStudent,
       password: passStudent,
+      sandbox: true,
     );
     Token employeeToken = await auth.getToken(
       username: userEmployee,
       password: passEmployee,
+      sandbox: true,
     );
 
     student = UMMobileSDK(token: studentToken.accessToken);

@@ -17,11 +17,17 @@ class UMMobileAuth {
       : this._http = UMMobileCustomHttp(baseUrl: '$host/$version/$path');
 
   /// Retrieve a new token for the [username] if the [password] is correct.
+  ///
+  /// If [sandbox] is set to `true` then returns credentials for sandbox services (if availables).
   Future<Token> getToken({
     required int username,
     required String password,
+    bool sandbox: false,
   }) {
     return this._http.customPost<Token>(
+      queries: {
+        'sandbox': sandbox,
+      },
       body: {
         'username': username,
         'password': password,
