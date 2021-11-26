@@ -56,6 +56,15 @@ Token token = await UMMobileSDK
   .auth()
   .getToken(username: 1234567, password: 'YOUR_PASSWORD');
 
+// Get token for testing with sandbox services
+Token sandboxToken = await UMMobileSDK
+  .auth()
+  .getToken(
+    username: 1234567,
+    password: 'YOUR_PASSWORD',
+    sandbox: true,
+  );
+
 // Initialize using the access token
 UMMobileSDK sdk = UMMobileSDK(token: token.accessToken);
 ```

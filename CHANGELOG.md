@@ -123,3 +123,7 @@
 * Fixes error converting DateTime to JSON
 * Adds support for documents pages
 * Updates examples
+
+## 0.0.9
+> Release date: 26/Nov/2021
+* Adds sandbox support
