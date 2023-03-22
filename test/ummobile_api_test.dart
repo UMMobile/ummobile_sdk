@@ -7,10 +7,10 @@ import 'package:ummobile_sdk/ummobile_sdk.dart';
 void main() {
   late UMMobileSDK employee;
   late UMMobileSDK student;
-  int userStudent = 1130745;
-  int userEmployee = 9830438;
-  String passStudent = Platform.environment['PASSWORD_STUDENT'] ?? '';
-  String passEmployee = Platform.environment['PASSWORD_EMPLOYEE'] ?? '';
+  int userStudent = 1180416;
+  int userEmployee = 9830548;
+  String passStudent = Platform.environment['PASSWORD_STUDENT'] ?? '03052000';
+  String passEmployee = Platform.environment['PASSWORD_EMPLOYEE'] ?? '9830548';
   String execEnv = env['EXEC_ENV'] ?? Platform.environment['EXEC_ENV'] ?? '';
 
   if (execEnv != 'github_actions') {
